@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
 
     public void AcquireItem(Item item, int count = 1)
     {
-        if (Item.eItemType.Equipment != item._itemType)
+        if (Item.eItemType.Weapon != item._itemType || Item.eItemType.Armor != item._itemType)
         {
             for (int i = 0; i < _slots.Length; i++)
             {

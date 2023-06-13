@@ -24,8 +24,8 @@ public class PlayerAnimCtrl : MonoBehaviour
 
     public void SwordAttackAnim(float attackSpeed)
     {
-        _animator.SetTrigger("NormalAttack");
         _animator.SetFloat("AttackSpeed", attackSpeed);
+        _animator.SetTrigger("NormalAttack");        
     }
 
     public void LongSwordAttackAnim(float attackSpeed)

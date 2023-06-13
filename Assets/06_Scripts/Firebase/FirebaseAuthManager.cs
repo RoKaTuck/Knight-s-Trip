@@ -25,16 +25,18 @@ public class FirebaseAuthManager
 
     public Action<bool> _logInState;
 
-    bool _isLogin;
+    private bool _isLogin;
 
 
     public void Init()
     {
         _auth = FirebaseAuth.DefaultInstance;
+
         if(_auth.CurrentUser != null)
         {
             LogOut();
         }
+        
         _auth.StateChanged += OnChanged;
     }
 
@@ -93,7 +95,7 @@ public class FirebaseAuthManager
             if (task.IsFaulted)
             {
                 errorText.text = "잘못된 이메일 혹은 패스워드를 입력하셨습니다.";
-                email.text = string.Empty;
+                email.text    = string.Empty;
                 password.text = string.Empty;
                 Debug.LogError("로그인 실패");
                 return;

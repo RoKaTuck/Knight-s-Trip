@@ -2164,7 +2164,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8130644296314236351}
-  - {fileID: 8130679847788725366}
   m_Father: {fileID: 8125756318538326053}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 78.3}
@@ -2191,14 +2190,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8125756318374460623}
-  m_LocalRotation: {x: -0.3868102, y: -0.7070585, z: -0.054336384, w: 0.58948594}
-  m_LocalPosition: {x: -0.0639979, y: 0.14099978, z: 0.008999944}
+  m_LocalRotation: {x: -0.49234167, y: -0.65924674, z: 0.10819144, w: 0.55793196}
+  m_LocalPosition: {x: -0.092, y: 0.13, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8130679847788725366}
   m_Father: {fileID: 8125756318538326053}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -32.2, y: -110.7, z: 34.8}
+  m_LocalEulerAnglesHint: {x: -24, y: -112.8, z: 57.43}
 --- !u!1 &8125756318538326054
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,6 +2209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8125756318538326053}
   - component: {fileID: 8125756318538326052}
+  - component: {fileID: 1687872147}
   m_Layer: 6
   m_Name: Holder
   m_TagString: Untagged
@@ -2251,7 +2252,24 @@ MonoBehaviour:
   _swords:
   - {fileID: 2034595488614103949}
   - {fileID: 4725155683302334164}
-  _playerAttackCtrl: {fileID: 8936572676152902208}
+  _swordCtrl: {fileID: 1687872147}
+--- !u!114 &1687872147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125756318538326054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a7636266344b94986a1e3cb88126c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentSword: {fileID: 2034595488614103949}
+  _swordEffect: {fileID: 0}
+  _animCtrl: {fileID: 8936572676152902209}
+  _moveCtrl: {fileID: 8936572676152902211}
+  _attackCtrl: {fileID: 8936572676152902208}
 --- !u!1 &8125756319048011312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,7 +2281,6 @@ GameObject:
   - component: {fileID: 8125756319048011309}
   - component: {fileID: 8125756319048011310}
   - component: {fileID: 8125756319048011311}
-  - component: {fileID: 8125756319048011308}
   - component: {fileID: 8125756319048011307}
   m_Layer: 0
   m_Name: Main Camera
@@ -2338,21 +2355,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8125756319048011312}
   m_Enabled: 1
---- !u!114 &8125756319048011308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8125756319048011312}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bde4c4d8e2e326439921e45fb40b625, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 8597025534238398716}
-  smoothSpeed: 0.125
-  offset: {x: 0, y: 3.57, z: -3.2}
 --- !u!114 &8125756319048011307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2485,7 +2487,7 @@ GameObject:
   - component: {fileID: 8936572676152902213}
   m_Layer: 6
   m_Name: Paladin
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2497,7 +2499,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8936572676152902214}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0000000037252903, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.999527, y: -0.47000003, z: 67.00004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2561,8 +2563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fcea78cab9fe6b44949c8a05ca0f0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentSword: {fileID: 2034595488614103949}
-  _swordEffect: {fileID: 198741542255655676, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
+  _swordCtrl: {fileID: 1687872147}
+  _moveCtrl: {fileID: 8936572676152902211}
   _attackType: 0
 --- !u!114 &8936572676152902271
 MonoBehaviour:
@@ -2596,12 +2598,12 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8936572676152902214}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 68
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &8936572676152902213
@@ -2840,7 +2842,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8125756317737727132}
+    m_TransformParent: {fileID: 8125756318374460622}
     m_Modifications:
     - target: {fileID: -5667960044639576194, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
       propertyPath: _swordType
@@ -2851,12 +2853,28 @@ PrefabInstance:
       value: Old LongSword
       objectReference: {fileID: 0}
     - target: {fileID: 1543617723021510, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543617723021510, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4932889332286940, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932889332286940, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.20000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932889332286940, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.19999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932889332286940, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4932889332286940, guid: c3e8534306962db4dba7e8054b633a20, type: 3}
       propertyPath: m_LocalPosition.x

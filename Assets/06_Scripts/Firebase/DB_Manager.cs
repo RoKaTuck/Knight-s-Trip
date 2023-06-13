@@ -8,7 +8,7 @@ using Firebase.Database;
 public class DB_Manager : MonoBehaviour
 {
     public string _DBurl = "https://a-free-trip-default-rtdb.firebaseio.com/";
-    DatabaseReference _reference;
+    private DatabaseReference _reference;
     
     // Start is called before the first frame update
     void Start()

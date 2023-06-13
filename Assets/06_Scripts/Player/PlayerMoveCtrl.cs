@@ -33,11 +33,12 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
+        Cursor.visible   = false;
         Cursor.lockState = CursorLockMode.Locked;
-        _rigid = GetComponent<Rigidbody>();
-        _animCtrl = GetComponent<PlayerAnimCtrl>();
+
         _applySpeed = _playerSpeed;
+        _rigid      = GetComponent<Rigidbody>();
+        _animCtrl   = GetComponent<PlayerAnimCtrl>();
     }
     
     // Update is called once per frame
@@ -45,7 +46,6 @@ public class PlayerMoveCtrl : MonoBehaviour
     {
         if (_isMove == false)
             return;
-
         
         RigidMove();
         if(Input.GetKey(KeyCode.LeftAlt))
@@ -55,7 +55,8 @@ public class PlayerMoveCtrl : MonoBehaviour
 
             return;
         }
-        if (Inventory._inventoryActivated == false)
+
+        if (Inventory._inventoryActivated == false && UiManager._isUiActivated == false)
         {
             CameraRotation();
             CharacterRotation();
@@ -77,34 +78,31 @@ public class PlayerMoveCtrl : MonoBehaviour
     private void TryRun()
     {
         if(Input.GetKey(KeyCode.LeftShift))
-        {
             Running();
-        }
         if(Input.GetKeyUp(KeyCode.LeftShift))
-        {
             RunningCancel();
-        }
-
     }
 
     private void Running()
     {
-        _isRun = true;
-        _applySpeed = _playerRunSpeed;        
+        _isRun      = true;
+        _applySpeed = _playerRunSpeed;   
+        
         _animCtrl.SprintAnim(_isRun);
     }
 
     private void RunningCancel()
     {
-        _isRun = false;
+        _isRun      = false;
         _applySpeed = _playerSpeed;
+
         _animCtrl.SprintAnim(_isRun);
     }
 
     private void CharacterRotation()
     {
         // 좌우 캐릭터 회전
-        float rotationY = Input.GetAxisRaw("Mouse X");
+        float rotationY            = Input.GetAxisRaw("Mouse X");
         Vector3 characterRotationY = new Vector3(0f, rotationY, 0f) * _lookSensitivity;
 
         _rigid.MoveRotation(_rigid.rotation * Quaternion.Euler(characterRotationY));
@@ -116,7 +114,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         float inputZ = Input.GetAxisRaw("Vertical");
 
         Vector3 moveHoriziontal = transform.right * inputX;
-        Vector3 moveVertical = transform.forward * inputZ;
+        Vector3 moveVertical    = transform.forward * inputZ;
 
         Vector3 velocity = (moveHoriziontal + moveVertical).normalized * _applySpeed;
 
@@ -137,10 +135,11 @@ public class PlayerMoveCtrl : MonoBehaviour
     private void CameraRotation()
     {
         // 상하 카메라 회전
-        float rotationX = Input.GetAxisRaw("Mouse Y");
+        float rotationX       = Input.GetAxisRaw("Mouse Y");
         float cameraRotationX = rotationX * _lookSensitivity;
+
         _currentCameraRotationX -= cameraRotationX;
-        _currentCameraRotationX = Mathf.Clamp(_currentCameraRotationX, -_cameraRotationLimit, _cameraRotationLimit);
+        _currentCameraRotationX  = Mathf.Clamp(_currentCameraRotationX, -_cameraRotationLimit, _cameraRotationLimit);
 
         _theCamera.transform.localEulerAngles = new Vector3(_currentCameraRotationX, 0f, 0f);
     }

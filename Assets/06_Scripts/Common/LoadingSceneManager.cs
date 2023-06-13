@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class LoadingSceneManager : MonoBehaviour
 {
     [SerializeField, Header("LoadingSceneManager Attribute")]
-    Slider _slider;
+    private Slider _slider;
     [SerializeField]
-    string _sceneName;
+    private string _sceneName;
     [SerializeField]
-    float _limitTime; // 프로그레스 바의 최대 대기 시간 
+    private float _limitTime; // 프로그레스 바의 최대 대기 시간 
 
-    AsyncOperation _operation;
+    private AsyncOperation _operation;
 
     private float _time;
     private bool _isDone = false;
@@ -26,13 +26,11 @@ public class LoadingSceneManager : MonoBehaviour
 
     private void Update()
     {
-        _time += Time.deltaTime;
+        _time        += Time.deltaTime;
         _slider.value = _time / _limitTime;
 
         if(_time >= _limitTime)
-        {
             _operation.allowSceneActivation = true;
-        }
     }
 
     IEnumerator CRT_LoadAsynScene(string sceneName)

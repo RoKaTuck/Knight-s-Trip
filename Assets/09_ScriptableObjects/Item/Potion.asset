@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Potion
   m_EditorClassIdentifier: 
   _itemName: "\uD3EC\uC158"
-  _itemType: 1
+  _itemType: 2
   _itemImage: {fileID: 21300000, guid: ff4627f82e3db2b40976a18716c55bfa, type: 3}
   _itemPrefab: {fileID: 745946879031969996, guid: b53ea96da606eba40951b282746b6e32, type: 3}
   _weaponType: 

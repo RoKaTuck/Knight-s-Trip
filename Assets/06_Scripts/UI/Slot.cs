@@ -32,7 +32,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         _itemCount = count;
         _itemImage.sprite = item._itemImage;
 
-        if(item._itemType != Item.eItemType.Equipment)
+        if(item._itemType != Item.eItemType.Weapon && item._itemType != Item.eItemType.Armor)
         {
             _CountImage.SetActive(true);
             _textCount.text = count.ToString();
@@ -52,10 +52,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             if(_item != null)
             {
-                if(_item._itemType == Item.eItemType.Equipment)
+                if(_item._itemType == Item.eItemType.Weapon)
                 {
                     // ÀåÂø
-                    StartCoroutine(_weaponManager.CRT_ChangeWeapon(_item._weaponType, _item._itemName));
+                    WeaponAttack weaponAttack = new WeaponSword();
+                    if (_item._weaponType == "SWORD")
+                        weaponAttack = new WeaponSword();
+                    else if (_item._weaponType == "LONGSWORD")
+                        weaponAttack = new WeaponLongSword();
+
+                    if(weaponAttack != null)
+                        StartCoroutine(_weaponManager.CRT_ChangeWeapon(weaponAttack, _item._weaponType, _item._itemName));
                 }
                 else
                 {

@@ -30,11 +30,8 @@ public class WeaponManager : MonoBehaviour
 
     // 필요한 컴포넌트
     [SerializeField]
-    private PlayerAttackCtrl _playerAttackCtrl;
+    private SwordCtrl _swordCtrl;
     
-
-
-    // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < _swords.Length; i++)
@@ -43,7 +40,6 @@ public class WeaponManager : MonoBehaviour
         }               
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(_isChangeWeapon == false)
@@ -51,24 +47,24 @@ public class WeaponManager : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
                 // 무기 교체 실행(소드)
-                StartCoroutine(CRT_ChangeWeapon("SWORD", "Old Sword"));
+                StartCoroutine(CRT_ChangeWeapon(new WeaponSword(), "SWORD","Old Sword"));                
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 // 무기 교체 실행(소드)
-                StartCoroutine(CRT_ChangeWeapon("LONGSWORD", "Old LongSword"));
+                StartCoroutine(CRT_ChangeWeapon(new WeaponLongSword(), "LONGSWORD","Old LongSword"));                
             }
         }
     }
 
-    public IEnumerator CRT_ChangeWeapon(string type, string name)
+    public IEnumerator CRT_ChangeWeapon(WeaponAttack attacktype, string type, string name)
     {
         _isChangeWeapon = true;
 
         yield return new WaitForSeconds(_changeWeaponDelayTime);
 
         CancelPreWeaponAcCtion();
-        WeaponChange(type, name);
+        WeaponChange(attacktype, name);
 
         yield return new WaitForSeconds(_changeWeaponEndDelayTime);
 
@@ -76,10 +72,18 @@ public class WeaponManager : MonoBehaviour
         _isChangeWeapon = false;
     }
 
-    private void WeaponChange(string type, string name)
+    private void WeaponChange(WeaponAttack type, string name)
     {
-        if(type == "SWORD" || type == "LONGSWORD")
-            _playerAttackCtrl.SwordChange(_swordDictionary[name]);
+        if (type != null)
+        {
+            _swordCtrl.SwordChange(_swordDictionary[name]);
+            _swordCtrl.SetWeaponType(type);
+        }
+        
+        //if(type == "SWORD")
+        //    _swordCtrl.SetWeaponType(new WeaponSword());
+        //else if(type == "LONGSWORD")
+        //    _swordCtrl.SetWeaponType(new WeaponLongSword());
     }
 
     private void CancelPreWeaponAcCtion()

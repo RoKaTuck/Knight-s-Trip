@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttackCtrl : MonoBehaviour
-{
+{    
+    // 필요한 컴포넌트
     [SerializeField]
-    private Sword _currentSword;
-    private float _currentSwordSpeed;
-
+    private SwordCtrl _swordCtrl;
     [SerializeField]
-    ParticleSystem _swordEffect;
-
-    private PlayerAnimCtrl _animCtrl;
     private PlayerMoveCtrl _moveCtrl;
+
+    [HideInInspector]
+    public WeaponAttack _weaponAttack;
 
     public enum eAttackType
     {
@@ -24,31 +23,13 @@ public class PlayerAttackCtrl : MonoBehaviour
 
     private void Start()
     {
-        _animCtrl = GetComponent<PlayerAnimCtrl>();
-        _moveCtrl = GetComponent<PlayerMoveCtrl>();
-
-        WeaponManager._currentWeapon = _currentSword.GetComponent<Transform>();
+        _weaponAttack = new WeaponSword();
     }
 
-
-    // Update is called once per frame
     void Update()
-    {        
-        TryAttack(_attackType);
-    }
-
-    public void SwordChange(Sword sword)
-    {        
-        if(WeaponManager._currentWeapon != null)
-            WeaponManager._currentWeapon.gameObject.SetActive(false);
-
-        _currentSword = sword;
-        _attackType = (eAttackType)sword._swordType;
-        WeaponManager._currentWeapon = _currentSword.GetComponent<Transform>();        
-
-        _currentSword.transform.localPosition = Vector3.zero;
-        _currentSword.gameObject.SetActive(true);
-    }
+    {
+        _swordCtrl.WeaponAttack(_weaponAttack);
+    }   
 
     public void OnAttackEnd()
     {
@@ -57,58 +38,8 @@ public class PlayerAttackCtrl : MonoBehaviour
 
     public void OnSwordEffect()
     {
-        //ParticleSystem swordEffect = Instantiate(_swordEffect, )
+        
     }
 
-    private void TryAttack(eAttackType attackType)
-    {
-        if (Input.GetMouseButtonDown(0) && Inventory._inventoryActivated == false)
-        {
-            switch (attackType)
-            {
-                case eAttackType.Sword:
-                    WeaponSpeedCalc(_currentSword._swordSpeed);
-                    SwordAttack(_currentSwordSpeed);
-                    break;
-                case eAttackType.LongSword:
-                    WeaponSpeedCalc(_currentSword._swordSpeed);
-                    LongSwordAttack(_currentSwordSpeed);
-                    break;
-            }
-        }
-    }
-
-    private void SwordAttack(float currentSwordSpeed)
-    {        
-        _animCtrl.SwordAttackAnim(_currentSwordSpeed);
-        _moveCtrl._Move = false;
-    }
-
-    private void LongSwordAttack(float currentSwordSpeed)
-    {
-        _animCtrl.LongSwordAttackAnim(currentSwordSpeed);
-        _moveCtrl._Move = false;
-    }
-
-    private float WeaponSpeedCalc(float weaponSpeed)
-    {
-        _currentSwordSpeed = 1 * weaponSpeed;
-        return _currentSwordSpeed;
-    }
-
-
-    void WarriorChargingAttack()
-    {
-
-    }
-
-    void LongSwordNormalAttack()
-    {
-
-    }
-
-    void LongSwordChargingAttack()
-    {
-
-    }
+    
 }
