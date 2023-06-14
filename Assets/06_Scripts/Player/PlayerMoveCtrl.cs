@@ -46,9 +46,13 @@ public class PlayerMoveCtrl : MonoBehaviour
     {
         if (_isMove == false)
             return;
-        
-        RigidMove();
-        if(Input.GetKey(KeyCode.LeftAlt))
+
+        if (UiManager._isUiActivated == false)
+            RigidMove();
+        else
+            _animCtrl.MoveAnim(0, 0);
+
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
@@ -56,7 +60,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             return;
         }
 
-        if (Inventory._inventoryActivated == false && UiManager._isUiActivated == false)
+        if (Inventory._inventoryActivated == false)
         {
             CameraRotation();
             CharacterRotation();
@@ -65,7 +69,9 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     private void Update()
     {
-        TryRun();
+        if(UiManager._isUiActivated == false)
+            TryRun();
+
         if (Input.GetKeyUp(KeyCode.LeftAlt))
         {
             Cursor.visible = false;

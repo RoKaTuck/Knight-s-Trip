@@ -28,7 +28,8 @@ public class PlayerAttackCtrl : MonoBehaviour
 
     void Update()
     {
-        _swordCtrl.WeaponAttack(_weaponAttack);
+        if(Inventory._inventoryActivated == false && UiManager._isUiActivated == false)
+            _swordCtrl.WeaponAttack(_weaponAttack);
     }   
 
     public void OnAttackEnd()

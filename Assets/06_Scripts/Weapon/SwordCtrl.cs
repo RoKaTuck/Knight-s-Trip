@@ -18,7 +18,7 @@ public class WeaponLongSword : WeaponAttack
 {
     public override void Attack(PlayerAnimCtrl animCtrl, PlayerMoveCtrl moveCtrl, float currentSwordSpeed)
     {
-        if (Input.GetMouseButtonDown(0) && Inventory._inventoryActivated == false)
+        if (Input.GetMouseButtonDown(0))
         {
             moveCtrl._Move = false;
             animCtrl.LongSwordAttackAnim(currentSwordSpeed);
