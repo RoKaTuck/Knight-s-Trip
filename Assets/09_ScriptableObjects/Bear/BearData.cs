@@ -2,23 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// 이름 체력 데미지 방어력 스피드
 [CreateAssetMenu(fileName = "Bear Data", menuName = "Scriptable Object / Bear Data", order = int.MaxValue)]
 public class BearData : ScriptableObject
 {
-    [SerializeField]
-    private string _bearName;
-    public string BearName { get { return _bearName; } }
-    [SerializeField]
-    private int _hp;
-    public int Hp { get { return _hp; } }
-    [SerializeField]
-    private int _atk;
-    public int Atk { get { return _atk; } }
-    [SerializeField]
-    private int _def;
-    public int Def { get { return _def; } }
-    [SerializeField]
-    private float _moveSpeed;
-    public float Movespeed { get { return _moveSpeed; } }
+    public string _bearName;
+    public int _hp;
+    public int _dmg;
+    public int _def;
+    public int _speed;
+
+    public enum eBearType
+    {
+        Normal,
+        Boss
+    }
 }

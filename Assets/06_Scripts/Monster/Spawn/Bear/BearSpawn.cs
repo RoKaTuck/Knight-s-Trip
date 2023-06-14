@@ -19,15 +19,16 @@ public class BearSpawn : SpawnManager
 
     private void Start()
     {
-        var bear = CreateMonster(_NormalBearPrefab);
+        //var bear = CreateMonster(_NormalBearPrefab);
     }
 
-    public override GameObject CreateMonster(GameObject mosnterPrefab)
+    public override void CreateMonster(Transform spawnPos)
     {
         //var newBear = Instantiate(_NormalBearPrefab).GetComponent<NormalBear>();
         //newBear.BearData = _bearDatas[(int)BearType.Normal];
 
         //return newBear.gameObject;
-        return gameObject;
+        //        
+        
     }
 }
