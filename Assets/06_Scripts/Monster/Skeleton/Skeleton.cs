@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Skeleton : MonsterCtrl 
 {    
@@ -19,11 +20,15 @@ public class Skeleton : MonsterCtrl
     private float _speed;
 
     [SerializeField]
-    private bool _inSight = false;    
+    private bool _inSight = false;
+
+    private NavMeshAgent _navAgent;
 
     private void Awake()
     {
         _skeletonAnim = GetComponent<SkeletonAnim>();
+        _navAgent = GetComponent<NavMeshAgent>();
+        _navAgent.enabled = false;
         InitState(this, FSM_IdleState._Inst);
     }
 
@@ -64,6 +69,7 @@ public class Skeleton : MonsterCtrl
         if(_inSight == true)
         {            
             _skeletonAnim.IdleAnim();
+            _navAgent.enabled = true;
             ChangeState(FSM_PatrolState._Inst);
         }        
     }   
