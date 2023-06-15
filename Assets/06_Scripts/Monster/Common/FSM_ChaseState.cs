@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FSM_AttackState : FSMSingleton<FSM_AttackState>, IFSMState<MonsterCtrl>
+public class FSM_ChaseState : FSMSingleton<FSM_ChaseState>, IFSMState<MonsterCtrl>
 {
     public void Enter(MonsterCtrl e)
     {
-        Debug.Log("Attack State 돌입");
+        Debug.Log("ChaseState 돌입");
     }
 
     public void Execute(MonsterCtrl e)
     {
-        
+        e.Chase();
     }
 
     public void Exit(MonsterCtrl e)
     {
         
     }
-    
 }

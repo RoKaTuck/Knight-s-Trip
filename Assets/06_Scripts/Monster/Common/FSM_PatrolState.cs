@@ -3,32 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FSM_PatrolState : FSMSingleton<FSM_PatrolState>, IFSMState<MonsterCtrl>
-{
-    private bool _patrolStart = false;
-
+{    
     public void Enter(MonsterCtrl e)
-    {        
+    {
+        Debug.Log("Patrol State 돌입");
         if ((object)e.PreviousState == FSM_IdleState._Inst)
-            StartCoroutine(CRT_StartPatrolDelay());
-        else if (e.PreviousState == FSM_AttackState._Inst) { }        
+            StartCoroutine(CRT_StartPatrolDelay(e));
+        else if ((object)e.PreviousState == FSM_AttackState._Inst || (object)e.PreviousState == FSM_ChaseState._Inst)
+        {
+            e._patrolStart = true;
+            e.PatrolStart();
+        }
     }
 
     public void Execute(MonsterCtrl e)
     {
-        if(_patrolStart == true)
-            Debug.Log("순찰 시작");
+        if (e._patrolStart == true)
+            e.Patrol();
     }
 
     public void Exit(MonsterCtrl e)
     {
-        _patrolStart = false;
+        e._patrolStart = false;
     }
 
-    IEnumerator CRT_StartPatrolDelay()
+    IEnumerator CRT_StartPatrolDelay(MonsterCtrl e)
     {
         yield return new WaitForSeconds(3f);
-        _patrolStart = true;
+        e._patrolStart = true;
 
+        e.PatrolStart();
         yield break;
     }
 }
