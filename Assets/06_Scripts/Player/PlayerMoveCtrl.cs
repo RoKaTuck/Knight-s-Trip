@@ -47,10 +47,13 @@ public class PlayerMoveCtrl : MonoBehaviour
         if (_isMove == false)
             return;
 
-        if (UiManager._isUiActivated == false)
+        if (UiManager._isUiActivated == false && NpcCtrl._isInteracting == false)
             RigidMove();
         else
+        {
             _animCtrl.MoveAnim(0, 0);
+            _animCtrl.SprintAnim(false);
+        }
 
         if (Input.GetKey(KeyCode.LeftAlt))
         {
@@ -60,7 +63,7 @@ public class PlayerMoveCtrl : MonoBehaviour
             return;
         }
 
-        if (Inventory._inventoryActivated == false)
+        if (Inventory._inventoryActivated == false && NpcCtrl._isInteracting == false)
         {
             CameraRotation();
             CharacterRotation();
@@ -150,31 +153,5 @@ public class PlayerMoveCtrl : MonoBehaviour
         _theCamera.transform.localEulerAngles = new Vector3(_currentCameraRotationX, 0f, 0f);
     }
     #endregion
-
-    #region Rigid(X) Move
-
-    void PlayerMove()
-    {        
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
-
-        Vector3 moveDir = new Vector3(inputX, 0f, inputZ);
-
-        if(!(moveDir.x == 0 && moveDir.z == 0))
-        {
-            _isMove = true;
-            transform.position += moveDir * _playerSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(transform.rotation,
-                                 Quaternion.LookRotation(moveDir), _playerRotateSpeed * Time.deltaTime);
-
-            if ((moveDir.x <= 0.1f && moveDir.x > 0) || (moveDir.x >= -0.01 && moveDir.x < 0))
-                moveDir.x = 0f;
-
-            if ((moveDir.z <= 0.1f && moveDir.z > 0) || (moveDir.z >= -0.02 && moveDir.z < 0))
-                moveDir.z = 0f;
-
-            _animCtrl.MoveAnim(moveDir.x, moveDir.z);
-        }        
-    }
-    #endregion
+    
 }

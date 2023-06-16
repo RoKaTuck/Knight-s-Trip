@@ -15,17 +15,7 @@ public class Skeleton : MonsterCtrl
 {    
     [SerializeField, Header("스켈레톤 데이터")]
     private SkeletonData _skeletonData;
-
-    [SerializeField, Header("스켈레톤 스테이터스")]
-    private string _name;
-    [SerializeField]
-    private int _hp;
-    [SerializeField]
-    private int _dmg;
-    [SerializeField]
-    private int _def;
-    [SerializeField]
-    private float _speed;
+ 
 
     [SerializeField, Header("인식 필요요소")]
     private SphereCollider _detectForWakeUp;
@@ -34,6 +24,7 @@ public class Skeleton : MonsterCtrl
     [SerializeField]
     private float _validAttackDist;
 
+    private bool _isAttack = false;
     private bool _isReturn = false;
     private bool _canMove = true;
     private Vector3 _originPos;
@@ -68,14 +59,65 @@ public class Skeleton : MonsterCtrl
         _navAgent.speed = _speed;        
         _originPos = transform.position;
     }    
-        
+     
+    IEnumerator CRT_DeathDelay(float deathTime)
+    {
+        _skeletonAnim.DeathAnim();
+
+        yield return new WaitForSeconds(deathTime);
+
+        DungeonManager.Instance.MonsterCount -= 1;
+        gameObject.DestroyAPS();
+
+        yield break;
+    }
+
+    public void OnAttackEnd()
+    {
+        _isAttack = false;        
+        _skeletonAnim.AttackAnim(0);
+        //_navAgent.enabled = false;
+        //transform.LookAt(_targetPos);
+        //_navAgent.enabled = true;
+    }
+
+    public override void Death()
+    {
+        StartCoroutine(CRT_DeathDelay(2.7f));
+        // 아이템 뿌리는거 구현
+    }
+
     public override void Attack()
     {
-        Debug.Log("스켈레톤 어택");
+        if (_hp <= 0)
+        {
+            ChangeState(FSM_DeathState._Inst);
+            return;
+        }
+
+        bool validDist = _monsterDetect.View(ref _targetPos);
+
+
+        if (_isAttack == false)
+        {
+            if (validDist == true && (_targetPos.position - transform.position).sqrMagnitude <= Mathf.Pow(_validAttackDist, 2))
+            {
+                _isAttack = true;                
+                _skeletonAnim.AttackAnim(Random.Range(1, 5));
+            }
+            else if (validDist == true && (_targetPos.position - transform.position).sqrMagnitude > Mathf.Pow(_validAttackDist, 2))
+                ChangeState(FSM_ChaseState._Inst);
+        }        
     }
 
     public override void Chase()
     {
+        if (_hp <= 0)
+        {
+            ChangeState(FSM_DeathState._Inst);
+            return;
+        }
+
         _monsterDetect._viewAngle = 360;
 
         _skeletonAnim.ChaseAnim(_canMove);
@@ -111,6 +153,12 @@ public class Skeleton : MonsterCtrl
 
     public override void Patrol()
     {
+        if (_hp <= 0)
+        {
+            ChangeState(FSM_DeathState._Inst);
+            return;
+        }
+
         _monsterDetect._viewAngle = 120;
 
         _monsterPatrol.MoveDestination(_navAgent, out _canMove);

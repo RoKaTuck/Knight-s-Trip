@@ -6,6 +6,7 @@ public abstract class WeaponAttack
 {
     public virtual void Attack(PlayerAnimCtrl animCtrl, PlayerMoveCtrl moveCtrl, float currentSwordSpeed)
     {
-        
+
     }
+    
 }

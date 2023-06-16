@@ -4629,6 +4629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _warriorSkeletonPrefab: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
+  _spawnCount: 0
 --- !u!4 &187364876
 Transform:
   m_ObjectHideFlags: 0
@@ -50500,6 +50501,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d1b4e31ec28eb8448fbd0adb2fae187, type: 3}
+--- !u!1 &1862958752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1862958754}
+  - component: {fileID: 1862958753}
+  m_Layer: 0
+  m_Name: DungeonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1862958753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862958752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801e7fee01e761b47b0065422eeb0efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mosnterCount: 0
+  _canSpawnBoss: 0
+--- !u!4 &1862958754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862958752}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1863866849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59506,10 +59553,6 @@ PrefabInstance:
     - target: {fileID: 8597025534238398716, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8936572676152902211, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
-      propertyPath: _lookSensitivity
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8936572676152902214, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
       propertyPath: m_Name

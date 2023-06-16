@@ -9,6 +9,8 @@ public class PlayerAttackCtrl : MonoBehaviour
     private SwordCtrl _swordCtrl;
     [SerializeField]
     private PlayerMoveCtrl _moveCtrl;
+    [SerializeField]
+    private SphereCollider _norAttackArea;
 
     [HideInInspector]
     public WeaponAttack _weaponAttack;
@@ -28,13 +30,30 @@ public class PlayerAttackCtrl : MonoBehaviour
 
     void Update()
     {
-        if(Inventory._inventoryActivated == false && UiManager._isUiActivated == false)
+        if(Inventory._inventoryActivated == false && UiManager._isUiActivated == false && NpcCtrl._isInteracting == false)
             _swordCtrl.WeaponAttack(_weaponAttack);
     }   
 
     public void OnAttackEnd()
     {
         _moveCtrl._Move = true;
+    }
+
+    public void OnSwordAttackEnd()
+    {
+        Collider[] monsters = new Collider[20];
+        Physics.OverlapSphereNonAlloc(transform.position, _norAttackArea.radius, monsters, 1 << 8);
+
+        for(int i = 0; i < monsters.Length; i++)
+        {
+            if (monsters[i] == null)
+                break;
+
+            MonsterCtrl monster = monsters[i].GetComponent<MonsterCtrl>();
+            monster._hp -= 100;
+
+            Debug.Log($"이름 : {monster._name} 피격!");
+        }
     }
 
     public void OnSwordEffect()

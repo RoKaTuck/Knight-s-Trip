@@ -47,7 +47,7 @@ public class WeaponManager : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
                 // 무기 교체 실행(소드)
-                StartCoroutine(CRT_ChangeWeapon(new WeaponSword(), "SWORD","Old Sword"));                
+                StartCoroutine(CRT_ChangeWeapon(new WeaponSword(), "SWORD", "Old Katana"));                
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {

@@ -9,11 +9,7 @@ public class UiManager : MonoBehaviour
     public static bool _isUiActivated = false;
 
     [SerializeField, Header("UiManager Attribute")]
-    private GameObject _cemetryDugeonObj;
-
-    // 필요한 컴포넌트
-    [SerializeField]
-    private Teleport _telePort;
+    private GameObject _cemetryDugeonObj;    
 
     private GameObject _curShowDungeonUi;
 

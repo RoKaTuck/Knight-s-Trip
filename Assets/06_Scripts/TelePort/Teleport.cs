@@ -39,6 +39,8 @@ public class Teleport : MonoBehaviour
     {
         BaseTeleport baseTeleport;
 
+        UiManager._isUiActivated = false;
+
         switch(_teleportType)
         {
             case eTeleportType.Cemetry:

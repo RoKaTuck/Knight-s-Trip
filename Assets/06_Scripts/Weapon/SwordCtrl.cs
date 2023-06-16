@@ -72,6 +72,7 @@ public class SwordCtrl : MonoBehaviour
         _currentSword.transform.localPosition = Vector3.zero;
         _currentSword.gameObject.SetActive(true);
     }    
+    
 
     private float WeaponSpeedCalc(float weaponSpeed)
     {

@@ -13,6 +13,11 @@ public class SkeletonAnim : MonoBehaviour
     }    
 
 
+    public void DeathAnim()
+    {
+        _animator.SetTrigger("Death");
+    }
+
     public void IdleAnim()
     {
         _animator.SetFloat("Awake", 1);

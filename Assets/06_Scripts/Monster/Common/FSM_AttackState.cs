@@ -11,7 +11,7 @@ public class FSM_AttackState : FSMSingleton<FSM_AttackState>, IFSMState<MonsterC
 
     public void Execute(MonsterCtrl e)
     {
-        
+        e.Attack();
     }
 
     public void Exit(MonsterCtrl e)

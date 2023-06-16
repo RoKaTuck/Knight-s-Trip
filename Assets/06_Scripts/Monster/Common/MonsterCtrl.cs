@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class MonsterCtrl : FSM<MonsterCtrl>, IMonsterBase
 {
+    [SerializeField, Header("몬스터 스테이터스")]
+    public string _name;
+    [SerializeField]
+    public int _hp;
+    [SerializeField]
+    public int _dmg;
+    [SerializeField]
+    public int _def;
+    [SerializeField]
+    public float _speed;
+
     public bool _patrolStart = false;
     protected SkeletonAnim _skeletonAnim;
 
@@ -12,6 +23,7 @@ public class MonsterCtrl : FSM<MonsterCtrl>, IMonsterBase
         FSMUpdate();
     }
 
+    public virtual void Death() { }
     public virtual void Attack(){}
     public virtual void Chase(){ }
 
