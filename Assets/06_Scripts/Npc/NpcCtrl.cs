@@ -12,13 +12,13 @@ public class NpcCtrl : MonoBehaviour
     [SerializeField]
     private GameObject _uiParent;
 
-    public void ShowInteractionUi()
+    public virtual void ShowInteractionUi()
     {
         _ownInteractionUi.SetActive(true);
         _isInteracting = true;
     }
 
-    public void CloseInteractionUi()
+    public virtual void CloseInteractionUi()
     {
         _ownInteractionUi.SetActive(false);
         _isInteracting = false;

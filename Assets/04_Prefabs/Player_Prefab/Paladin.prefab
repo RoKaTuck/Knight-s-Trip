@@ -2593,7 +2593,6 @@ GameObject:
   - component: {fileID: 8936572676152902210}
   - component: {fileID: 8936572676152902211}
   - component: {fileID: 8936572676152902208}
-  - component: {fileID: 8936572676152902271}
   - component: {fileID: 8936572676152902209}
   - component: {fileID: 8936572676152902212}
   - component: {fileID: 8936572676152902213}
@@ -2679,18 +2678,6 @@ MonoBehaviour:
   _moveCtrl: {fileID: 8936572676152902211}
   _norAttackArea: {fileID: 1914099749}
   _attackType: 0
---- !u!114 &8936572676152902271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8936572676152902214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00f7062ad32c1894db93d83127cd298e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8936572676152902209
 MonoBehaviour:
   m_ObjectHideFlags: 0

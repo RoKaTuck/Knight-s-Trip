@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlackSmith : NpcCtrl
 {
@@ -13,14 +14,24 @@ public class BlackSmith : NpcCtrl
     [SerializeField]
     private GameObject _devidePanel;
 
+    // 필요한 컴포넌트
+    [SerializeField]
+    private GameObject _inventory;
+    [SerializeField]
+    private Button _ownInventoryCancelBtn;
+
     public void OnClickReinforceBtn()
     {
+        Inventory._inventoryActivated = true;
+        _inventory.SetActive(true);
         _talkPanel.SetActive(false);
         _reinforcePanel.SetActive(true);
     }
 
     public void OnClickReinforceCancelBtn()
     {
+        Inventory._inventoryActivated = false;
+        _inventory.SetActive(false);
         _reinforcePanel.SetActive(false);
         _talkPanel.SetActive(true);
     }
@@ -39,12 +50,16 @@ public class BlackSmith : NpcCtrl
 
     public void OnClickDevideBtn()
     {
+        Inventory._inventoryActivated = true;
+        _inventory.SetActive(true);
         _talkPanel.SetActive(false);
         _devidePanel.SetActive(true);
     }
 
     public void OnClickDevideCancelBtn()
     {
+        Inventory._inventoryActivated = false;
+        _inventory.SetActive(false);
         _devidePanel.SetActive(false);
         _talkPanel.SetActive(true);
     }

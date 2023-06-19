@@ -79,11 +79,6 @@ public class WeaponManager : MonoBehaviour
             _swordCtrl.SwordChange(_swordDictionary[name]);
             _swordCtrl.SetWeaponType(type);
         }
-        
-        //if(type == "SWORD")
-        //    _swordCtrl.SetWeaponType(new WeaponSword());
-        //else if(type == "LONGSWORD")
-        //    _swordCtrl.SetWeaponType(new WeaponLongSword());
     }
 
     private void CancelPreWeaponAcCtion()
