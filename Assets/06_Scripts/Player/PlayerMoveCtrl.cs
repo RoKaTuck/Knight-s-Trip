@@ -27,6 +27,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     private Camera _theCamera;
     private Rigidbody _rigid;
     private PlayerAnimCtrl _animCtrl;
+    private StatusCtrl _statusCtrl;
 
     public bool _isMove = true;
     public bool _Move { set { _isMove = value; } }
@@ -39,6 +40,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         _applySpeed = _playerSpeed;
         _rigid      = GetComponent<Rigidbody>();
         _animCtrl   = GetComponent<PlayerAnimCtrl>();
+        _statusCtrl = FindObjectOfType<StatusCtrl>();
     }
     
     // Update is called once per frame
@@ -86,17 +88,17 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     private void TryRun()
     {
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift) && _statusCtrl.GetCurrentSp() > 0)
             Running();
-        if(Input.GetKeyUp(KeyCode.LeftShift))
+        if(Input.GetKeyUp(KeyCode.LeftShift) || _statusCtrl.GetCurrentSp() <= 0)
             RunningCancel();
     }
 
     private void Running()
     {
         _isRun      = true;
-        _applySpeed = _playerRunSpeed;   
-        
+        _applySpeed = _playerRunSpeed;
+        _statusCtrl.DecreaseStamina(10);
         _animCtrl.SprintAnim(_isRun);
     }
 

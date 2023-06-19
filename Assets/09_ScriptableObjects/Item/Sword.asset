@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   _itemName: Old Sword
+  _itemDesc: "\uC77C\uBC18 \uC18C\uB4DC"
   _itemType: 0
   _itemImage: {fileID: 21300000, guid: 01af9f835d4eb7348b2f7e3bbe4956ea, type: 3}
   _itemPrefab: {fileID: 745946879031969996, guid: b53ea96da606eba40951b282746b6e32, type: 3}

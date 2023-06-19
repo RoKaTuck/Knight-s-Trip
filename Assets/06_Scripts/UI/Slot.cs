@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {    
     [Header("Slot Attribute")]
     public Item _item; // 획득한 아이템
@@ -17,12 +17,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     [SerializeField]
     private TMPro.TextMeshProUGUI _textCount;
     [SerializeField]
-    private GameObject _CountImage;
-    private WeaponManager _weaponManager;
+    private GameObject _CountImage;    
+    private ItemEffectDatabase _itemEffectDatabase;    
 
     private void Start()
-    {        
-        _weaponManager = FindObjectOfType<WeaponManager>();
+    {                
+        _itemEffectDatabase = FindObjectOfType<ItemEffectDatabase>();
     }
 
     // 아이템 획득
@@ -52,24 +52,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         {
             if(_item != null)
             {
-                if(_item._itemType == Item.eItemType.Weapon)
-                {
-                    // 장착
-                    WeaponAttack weaponAttack = new WeaponSword();
-                    if (_item._weaponType == "SWORD")
-                        weaponAttack = new WeaponSword();
-                    else if (_item._weaponType == "LONGSWORD")
-                        weaponAttack = new WeaponLongSword();
+                // 소모
+                _itemEffectDatabase.UseItem(_item);     
 
-                    if(weaponAttack != null)
-                        StartCoroutine(_weaponManager.CRT_ChangeWeapon(weaponAttack, _item._weaponType, _item._itemName));
-                }
-                else
-                {
-                    // 소모
-                    Debug.Log(_item._itemName + " 을 사용했습니다.");
-                    SetSlotCount(-1);
-                }
+                if(_item._itemType == Item.eItemType.Used)
+                    SetSlotCount(-1);                
             }
         }
     }
@@ -146,4 +133,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         else
             DragSlot.instance._dragSlot.ClearSlot();
     }
+
+    // 마우스가 슬롯에 들어갈 때 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(_item != null)
+            _itemEffectDatabase.ShowToolTip(_item, transform.position);
+    }
+
+    // 마우스가 슬롯에서 빠져나갈 때 작동.
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _itemEffectDatabase.HideToolTip();
+    }    
 }
