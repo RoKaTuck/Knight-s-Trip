@@ -2638,6 +2638,15 @@ MonoBehaviour:
   _inventoryBase: {fileID: 1291937423022999878}
   _slotsParent: {fileID: 1291937423500484454}
   _ownGold: {fileID: 1823431921}
+  _items:
+  - {fileID: 11400000, guid: bcafda25455b5e54b8d826955981cc87, type: 2}
+  - {fileID: 11400000, guid: fa5229cb4c3bb7448adf4cc3944095f8, type: 2}
+  - {fileID: 11400000, guid: f2c33c28f01cc164e89cce51a1a6088a, type: 2}
+  - {fileID: 11400000, guid: 990a777206fb2404d87b6fcfb38ffb01, type: 2}
+  - {fileID: 11400000, guid: 32716ce296992084e9366032dafba1c5, type: 2}
+  - {fileID: 11400000, guid: 386ae2ac7d7735040a7729949101ead0, type: 2}
+  - {fileID: 11400000, guid: dd032b34e42554e42bd858217096b144, type: 2}
+  - {fileID: 11400000, guid: d65133daef0e76e4db387ea9d6cb2690, type: 2}
 --- !u!1 &1291937423500484454
 GameObject:
   m_ObjectHideFlags: 0

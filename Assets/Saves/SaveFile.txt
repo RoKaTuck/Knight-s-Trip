@@ -1,0 +1,18 @@
+{
+    "_playerPos": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "_playerRot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "_playerGold": 10000,
+    "_playerHp": 100,
+    "_playerMp": 100,
+    "_invenArrayNumber": [],
+    "_invenItemName": [],
+    "_invenItemNumber": []
+}

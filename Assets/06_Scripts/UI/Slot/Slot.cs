@@ -9,7 +9,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     [Header("Slot Attribute")]
     public Item _item; // 획득한 아이템
     [SerializeField]
-    int _itemCount; // 획득한 아이템 개수
+    public int _itemCount; // 획득한 아이템 개수
     [SerializeField]
     Image _itemImage; // 아이템의 이미지
 

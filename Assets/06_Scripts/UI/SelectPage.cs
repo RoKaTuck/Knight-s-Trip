@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SelectPage : MonoBehaviour
 {
@@ -20,14 +20,18 @@ public class SelectPage : MonoBehaviour
 
     // 기존에 있던 데이터를 지우고 새로 만들 지 질문 후 실행
     public void OnClickStartGameBtn()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_sceneName);
+    {        
+        Save_Load.Instance.InitializeData();
+        SceneManager.LoadScene(_sceneName);
     }
 
     //  기존 데이터가 존재하면 실행
     public void OnClickLoadGameBtn()    
-    {
-
+    {        
+        if (File.Exists(Application.dataPath + "/Saves/" + "SaveFile.txt"))
+            SceneManager.LoadScene(_sceneName);
+        else
+            Debug.Log("데이터가 존재하지 않습니다.");
     }
 
     //  옵션 패널 활성화 && 옵션 요소들

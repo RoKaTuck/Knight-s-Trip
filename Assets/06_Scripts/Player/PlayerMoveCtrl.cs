@@ -88,9 +88,9 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     private void TryRun()
     {
-        if(Input.GetKey(KeyCode.LeftShift) && _statusCtrl.GetCurrentSp() > 0)
+        if(Input.GetKey(KeyCode.LeftShift) && _statusCtrl._Sp > 0)
             Running();
-        if(Input.GetKeyUp(KeyCode.LeftShift) || _statusCtrl.GetCurrentSp() <= 0)
+        if(Input.GetKeyUp(KeyCode.LeftShift) || _statusCtrl._Sp <= 0)
             RunningCancel();
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int _gold;
-    public int _Gold { get { return _gold; } set { _gold = value; } }
+    public int _Gold { get { return _gold; } set { _gold = value; } }    
 
     private static GameManager instance;
 
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Awake()
-    {
+    {        
         if (null == instance)
         {            
             instance = this;
@@ -32,5 +32,10 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    
+
+
+    private void OnApplicationQuit()
+    {
+        Save_Load.Instance.SaveData();        
+    }
 }

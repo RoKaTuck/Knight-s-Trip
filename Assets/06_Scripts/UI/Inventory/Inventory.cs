@@ -18,8 +18,21 @@ public class Inventory : MonoBehaviour
     // ½½·Ôµé
     private Slot[] _slots;
 
+    public Slot[] GetSlot() { return _slots; }
+
+    [SerializeField] private Item[] _items;
+
+    public void LoadToInven(int arrayNum, string itemName, int itemNum)
+    {
+        for(int i = 0; i < _items.Length; i++)
+        {
+            if (_items[i]._itemName == itemName)
+                _slots[arrayNum].AddItem(_items[i], itemNum);
+        }
+    }
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _slots = _slotsParent.GetComponentsInChildren<Slot>();        
     }
@@ -29,7 +42,7 @@ public class Inventory : MonoBehaviour
     {
         TryOpenInventory();
         UpdateCurrentGold();        
-    }
+    }    
 
     public void AcquireItem(Item item, int count = 1)
     {

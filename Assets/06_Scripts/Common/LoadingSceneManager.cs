@@ -11,7 +11,7 @@ public class LoadingSceneManager : MonoBehaviour
     [SerializeField]
     private string _sceneName;
     [SerializeField]
-    private float _limitTime; // 프로그레스 바의 최대 대기 시간 
+    private float _limitTime; // 프로그레스 바의 최대 대기 시간     
 
     private AsyncOperation _operation;
 
@@ -44,8 +44,7 @@ public class LoadingSceneManager : MonoBehaviour
 
             while(_operation.progress < 0.9f)
             {
-                _slider.value = _operation.progress;
-
+                _slider.value = _operation.progress;                
                 yield return true;
             }
         }

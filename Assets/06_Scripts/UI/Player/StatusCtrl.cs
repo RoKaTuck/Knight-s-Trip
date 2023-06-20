@@ -11,15 +11,21 @@ public class StatusCtrl : MonoBehaviour
     private int _hp;
     private int _currentHp;
 
+    public int _Hp { get {return _currentHp; } set { _currentHp = value; } }
+
     // 마나
     [SerializeField]
     private int _mp;
     private int _currentMp;
 
+    public int _Mp { get { return _currentMp; } set { _currentMp = value; } }
+
     // 스태미나
     [SerializeField]
     private int _sp;
     private int _currentSp;
+
+    public int _Sp { get { return _currentSp; } set { _currentSp = value; } }
 
     // 스태미나 증가량
     [SerializeField]
@@ -31,12 +37,7 @@ public class StatusCtrl : MonoBehaviour
     private int _currentSpRechargeTime;
 
     // 스태미나 감소 여부
-    private bool _spUsed;
-
-    // 방어력
-    [SerializeField]
-    private int _dp;
-    private int _currentDp;
+    private bool _spUsed;    
 
     // 필요한 슬라이더
     [SerializeField]
@@ -47,8 +48,7 @@ public class StatusCtrl : MonoBehaviour
     private void Start()
     {
         _currentHp = _hp;
-        _currentMp = _mp;
-        _currentDp = _dp;
+        _currentMp = _mp;        
         _currentSp = _sp;
     }
 
@@ -101,6 +101,16 @@ public class StatusCtrl : MonoBehaviour
             _currentSp -= count;
         else
             _currentSp = 0;
+    }
+
+    public int GetCurrentHp()
+    {
+        return _currentHp;
+    }
+
+    public int GetCurrentMp()
+    {
+        return _currentMp;
     }
 
     public int GetCurrentSp()
