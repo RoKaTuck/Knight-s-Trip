@@ -66,7 +66,7 @@ public class Skeleton : MonsterCtrl
 
         yield return new WaitForSeconds(deathTime);
 
-        DungeonManager.Instance.MonsterCount -= 1;
+        DungeonManager.Instance.MonsterCount -= 1;      
         gameObject.DestroyAPS();
 
         yield break;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class QuestNpc : NpcCtrl
@@ -8,38 +9,57 @@ public class QuestNpc : NpcCtrl
     [SerializeField]
     private TextMeshProUGUI _descriptionText;
 
-    public Quest[] quest; // NPC가 주는 퀘스트
-    public QuestManager questManager; // 퀘스트 관리자 스크립트 참조
+    public Quest[] _quest; // NPC가 주는 퀘스트
 
-    private int _currentQuestIdx = 0;
+    // 필요한 컴포넌트
+    [SerializeField]
+    private GameObject _questPrefab;
+    [SerializeField]
+    private GameObject _questParent;
+    [SerializeField]
+    private TextMeshProUGUI _questSideTitleTxt;
+    [SerializeField]
+    private TextMeshProUGUI _questSideCondition;
+    [SerializeField]
+    private GameObject _consentRefuseBtn;
+    [SerializeField]
+    private GameObject _clearBtn;
 
-    private void OnTriggerEnter(Collider other)
+    private int _currentQuestIdx = 0;  
+
+    public void OnClickClearBtn()
     {
-        if (other.CompareTag("Player"))
+        if (QuestManager.Instance._quests[_quest[_currentQuestIdx]._questName]._questConditionCurCount == QuestManager.Instance._quests[_quest[_currentQuestIdx]._questName]._questConditionMax)
         {
-            for(int i = 0; i < quest.Length; i++)
-            {
-                if(quest[i].IsCompleted == false)
-                {
-                    _currentQuestIdx = i;
-                    break;
-                }
-
-            }
+            QuestManager.Instance.CompleteQuest(_quest[_currentQuestIdx]);
+            _clearBtn.SetActive(false);
+            _consentRefuseBtn.SetActive(true);
+            CloseInteractionUi();
         }
+        else
+            Debug.Log("조건을 다시 확인하세요");
     }
 
-    private void OnTriggerExit(Collider other)
+    public void QuestConsentBtn()
     {
-        if (other.CompareTag("Player"))
-        {
-            // 플레이어와 충돌이 끝났을 때의 로직 작성
-        }
+        QuestManager.Instance.StartQuest(_quest[_currentQuestIdx]);
+        QuestManager.Instance._questName.Add(_quest[_currentQuestIdx]._questName);
+        QuestManager.Instance._quests.Add(_quest[_currentQuestIdx]._questName, _quest[_currentQuestIdx]);
+        QuestManager.Instance.AddQuestPanel(_quest[_currentQuestIdx], _questPrefab, _questParent);
+        QuestManager.Instance.AddSideQuest(_quest[_currentQuestIdx]._questName, _questSideTitleTxt, _questSideCondition);
+        _consentRefuseBtn.SetActive(false);
+        _clearBtn.SetActive(true);
+        CloseInteractionUi();
+    }
+
+    public void QuestRefuseBtn()
+    {
+        CloseInteractionUi();
     }
 
     public override void ShowInteractionUi()
     {
         base.ShowInteractionUi();
-        _descriptionText.text = quest[_currentQuestIdx].questDescription;       
+        _descriptionText.text = _quest[_currentQuestIdx]._questDescription;       
     }    
 }

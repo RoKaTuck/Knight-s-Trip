@@ -5,18 +5,21 @@ using UnityEngine;
 [System.Serializable]
 public class Quest
 {
-    public string questName; // 퀘스트 이름
+    public string _questName; // 퀘스트 이름
     [TextArea]
-    public string questDescription; // 퀘스트 설명
-    public int questReward; // 보상
-    public bool IsCompleted; // 퀘스트 완료 여부
+    public string _questDescription; // 퀘스트 설명
+    public int _questReward; // 보상
+    public string _questConditionString;
+    public int _questConditionCurCount = 0; // 현재 퀘스트 수집 혹은 사냥 수 
+    public int _questConditionMax; // 퀘스트 수집 혹은 사냥 최대 수
+    public bool _IsCompleted; // 퀘스트 완료 여부
 
     // 퀘스트 생성자
     public Quest(string name, string description, int reward)
     {
-        questName = name;
-        questDescription = description;
-        questReward = reward;
-        IsCompleted = false;
+        _questName = name;
+        _questDescription = description;
+        _questReward = reward;
+        _IsCompleted = false;
     }
 }

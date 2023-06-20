@@ -2635,7 +2635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5d2559cf6c7e34e852b9af63e32e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentGold: 0
   _inventoryBase: {fileID: 1291937423022999878}
   _slotsParent: {fileID: 1291937423500484454}
   _ownGold: {fileID: 1823431921}

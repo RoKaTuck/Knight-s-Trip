@@ -29,7 +29,7 @@ public class BuySlot : MonoBehaviour, IPointerClickHandler
     private void BuyItem()
     {
         _inventory.AcquireItem(_item);
-        _inventory._currentGold -= _item._buyPrice;
+        GameManager.Instance._Gold -= _item._buyPrice;
         Debug.Log(_item._itemName + "을 구매하셨습니다!");
     }
 

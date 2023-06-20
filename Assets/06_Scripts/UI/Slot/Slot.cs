@@ -19,9 +19,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     [SerializeField]
     private GameObject _CountImage;
     [SerializeField]
-    private FancyMonger _fancyMonger;
-    [SerializeField]
-    private Inventory _inventory;
+    private FancyMonger _fancyMonger;    
     private ItemEffectDatabase _itemEffectDatabase;    
 
     private void Start()
@@ -64,7 +62,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             }
             else if(_item != null && _fancyMonger._Selling == true)
             {
-                _inventory._currentGold += _item._sellPrice;
+                GameManager.Instance._Gold += _item._sellPrice;
                 SetSlotCount(-1);
             }
         }

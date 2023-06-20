@@ -5,10 +5,7 @@ using TMPro;
 
 public class Inventory : MonoBehaviour
 {
-    public static bool _inventoryActivated = false;
-
-    private int _startGold = 10000;
-    public int _currentGold;
+    public static bool _inventoryActivated = false;    
 
     // 필요한 컴포넌트
     [SerializeField]
@@ -24,15 +21,14 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _slots = _slotsParent.GetComponentsInChildren<Slot>();
-        _currentGold = _startGold;
+        _slots = _slotsParent.GetComponentsInChildren<Slot>();        
     }
 
     // Update is called once per frame
     void Update()
     {
         TryOpenInventory();
-        UpdateCurrentGold();
+        UpdateCurrentGold();        
     }
 
     public void AcquireItem(Item item, int count = 1)
@@ -65,7 +61,7 @@ public class Inventory : MonoBehaviour
 
     private void UpdateCurrentGold()
     {
-        _ownGold.text = "현재 금액 : " + _currentGold + "Gold";
+        _ownGold.text = "현재 금액 : " + GameManager.Instance._Gold + "Gold";
     }
 
     private void TryOpenInventory()
