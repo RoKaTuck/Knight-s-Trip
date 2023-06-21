@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class BaseTeleport 
 {
-    public abstract void TransferDungeon();
+    public abstract void TransferDestination();
 }

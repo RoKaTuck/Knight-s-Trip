@@ -1923,8 +1923,7 @@ MonoBehaviour:
   _mp: 100
   _sp: 1000
   _spIncreaseSpeed: 10
-  _spRechargeTime: 300
-  _dp: 100
+  _spRechargeTime: 0
   _imagesGauge:
   - {fileID: 7879636785713388915}
   - {fileID: 3951447960440464487}

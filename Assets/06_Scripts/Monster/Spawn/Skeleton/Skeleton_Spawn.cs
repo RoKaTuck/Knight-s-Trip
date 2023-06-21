@@ -6,6 +6,10 @@ public class Skeleton_Spawn : SpawnManager
 {
     [SerializeField]
     private GameObject _warriorSkeletonPrefab;
+    [SerializeField]
+    private GameObject _bossSkeletonPrefab;
+    [SerializeField]
+    private Transform _bossSpawnPos;
 
     public int _spawnCount;
 
@@ -45,6 +49,8 @@ public class Skeleton_Spawn : SpawnManager
 
     public override void CreateBoss()
     {
-        
+        DungeonManager.Instance.CanSapwnBoss = false;
+
+        Instantiate(_bossSkeletonPrefab, _bossSpawnPos.position, Quaternion.identity);
     }
 }

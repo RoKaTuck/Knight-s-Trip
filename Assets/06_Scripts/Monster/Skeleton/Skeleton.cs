@@ -66,6 +66,7 @@ public class Skeleton : MonsterCtrl
 
         yield return new WaitForSeconds(deathTime);
 
+        QuestManager.Instance.InceaseQuestCondition(DungeonManager.Instance._questId, 1);
         DungeonManager.Instance.MonsterCount -= 1;      
         gameObject.DestroyAPS();
 

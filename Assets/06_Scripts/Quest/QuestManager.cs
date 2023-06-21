@@ -7,10 +7,15 @@ using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {       
-    public Dictionary<string, Quest> _quests = new Dictionary<string, Quest>(); // 퀘스트 목록 / 키 값 : 제목, 퀘스트
+    public List<Quest> _quests = new List<Quest>();
     public List<string> _questName = new List<string>();
 
-    private static QuestManager instance;
+    private Dictionary<int, GameObject> _questBaseTextList = new Dictionary<int, GameObject>();
+    private TextMeshProUGUI _questSideTitleText;
+    private TextMeshProUGUI _questSideContentText;
+
+    #region Singleton
+    private static QuestManager instance;    
 
     public static QuestManager Instance
     {
@@ -34,6 +39,26 @@ public class QuestManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    #endregion
+
+    public void UpdateQuestProgress(int id, TextMeshProUGUI sideProgress)
+    {
+        Quest quest = _quests.Find(q => q._questID == id);
+
+        if (quest != null)
+        {
+            sideProgress.text = quest._questConditionString + " " + quest._questConditionCurCount +
+                                " / " + quest._questConditionMax;
+        }
+    }
+
+    public void InceaseQuestCondition(int id, int count)
+    {
+        Quest quest = _quests.Find(q => q._questID == id);
+
+        if(quest != null)
+            quest._questConditionCurCount += count;
     }
 
     // 퀘스트를 시작하는 함수
@@ -60,6 +85,8 @@ public class QuestManager : MonoBehaviour
             CompleteRewardGold(quest._questReward);
             Debug.Log("퀘스트를 완료합니다: " + quest._questName);
             // 보상 지급 및 퀘스트 완료 후 로직 작성
+
+            _quests.Remove(_quests.Find(q => q._questID == 0));
         }
         else
         {
@@ -70,17 +97,42 @@ public class QuestManager : MonoBehaviour
     public void AddQuestPanel(Quest quest, GameObject questPrefab, GameObject questParent)
     {
         GameObject questTxt = Instantiate(questPrefab, Vector3.zero, Quaternion.identity, questParent.transform); 
-        questTxt.GetComponent<TextMeshProUGUI>().text = $"제목 : {quest._questName} \n 조건 : {quest._questConditionString} {quest._questConditionCurCount} / {quest._questConditionMax}";
+        questTxt.GetComponent<TextMeshProUGUI>().text = $"제목 : {quest._questName} \n 조건 : {quest._questConditionString}";
+        
+        if(_questBaseTextList.ContainsKey(quest._questID) == false)
+            _questBaseTextList.Add(quest._questID, questTxt);
+
+        if(_questBaseTextList[quest._questID] == null)
+        {
+            _questBaseTextList.Remove(quest._questID);
+            _questBaseTextList.Add(quest._questID, questTxt);
+        }
+
     }
 
-    public void AddSideQuest(string questName, TextMeshProUGUI title, TextMeshProUGUI content)
+    public void AddSideQuest(int questId, TextMeshProUGUI title, TextMeshProUGUI content)
     {
-        title.text = _quests[questName]._questName;
-        content.text = $"조건 : {_quests[questName]._questConditionString} {_quests[questName]._questConditionCurCount} / {_quests[questName]._questConditionMax}";
+        Quest quest = _quests.Find(q => q._questID == questId);
+
+        title.text = quest._questName;
+        content.text = $"조건 : {quest._questConditionString} {quest._questConditionCurCount} / {quest._questConditionMax}";
+        _questSideTitleText = title;
+        _questSideContentText = content;
+    }
+
+    public void OutQuestPanel(int id)
+    {
+        Destroy(_questBaseTextList[id]);
+    }
+
+    public void ClearSideQuestText()
+    {
+        _questSideTitleText.text = string.Empty;
+        _questSideContentText.text = string.Empty;
     }
 
     public void CompleteRewardGold(int gold)
     {
         GameManager.Instance._Gold += gold;
-    }
+    }    
 }

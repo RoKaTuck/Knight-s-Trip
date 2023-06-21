@@ -2330,7 +2330,6 @@ MonoBehaviour:
   _swords:
   - {fileID: 2034595488614103949}
   - {fileID: 4725155683302334164}
-  - {fileID: 0}
   _swordCtrl: {fileID: 1687872147}
 --- !u!114 &1687872147
 MonoBehaviour:
@@ -2344,7 +2343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a7636266344b94986a1e3cb88126c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentSword: {fileID: 0}
+  _currentSword: {fileID: 2034595488614103949}
   _swordEffect: {fileID: 0}
   _animCtrl: {fileID: 8936572676152902209}
   _moveCtrl: {fileID: 8936572676152902211}
@@ -2563,6 +2562,7 @@ GameObject:
   - component: {fileID: 8936572676152902209}
   - component: {fileID: 8936572676152902212}
   - component: {fileID: 8936572676152902213}
+  - component: {fileID: 533582049}
   m_Layer: 6
   m_Name: Paladin
   m_TagString: Player
@@ -2625,6 +2625,8 @@ MonoBehaviour:
   _playerSpeed: 3
   _playerRunSpeed: 10
   _playerRotateSpeed: 12
+  _jumpForce: 4
+  _isGround: 1
   _cameraRotationLimit: 45
   _lookSensitivity: 4
   _theCamera: {fileID: 8125756319048011310}
@@ -2687,6 +2689,19 @@ CapsuleCollider:
   m_Height: 1.7193863
   m_Direction: 1
   m_Center: {x: 0, y: 0.8647733, z: 0}
+--- !u!114 &533582049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936572676152902214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f646f36f2067fb44c9f333bddce04f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _questBase: {fileID: 0}
 --- !u!1 &9102780496494825171
 GameObject:
   m_ObjectHideFlags: 0

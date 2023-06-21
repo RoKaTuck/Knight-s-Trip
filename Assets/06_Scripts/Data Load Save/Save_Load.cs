@@ -6,29 +6,51 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
+    // 플레이어 위치
     public Vector3 _playerPos;
     public Vector3 _playerRot;
+
+    // 플레이어 스텟
     public int _playerGold;
     public int _playerHp;
     public int _playerMp;
-    //public int _playerSp;
-
+    
+    // 플레이어 인벤토리
     public List<int> _invenArrayNumber = new List<int>();
     public List<string> _invenItemName = new List<string>();
     public List<int> _invenItemNumber = new List<int>();
+
+    // 플레이어 퀘스트
+    public List<QuestData> _questDataList = new List<QuestData>();
+}
+
+[System.Serializable]
+public class QuestData
+{
+    public int _questID; // 퀘스트 아이디
+    public string _questName; // 퀘스트 이름    
+    public string _questDescription; // 퀘스트 설명
+    public int _questReward; // 보상
+    public string _questConditionString;
+    public int _questConditionCurCount = 0; // 현재 퀘스트 수집 혹은 사냥 수 
+    public int _questConditionMax; // 퀘스트 수집 혹은 사냥 최대 수
+    public bool _isCompleted; // 퀘스트 완료 여부
 }
 
 public class Save_Load : MonoBehaviour
 {
     private PlayerData _playerData = new PlayerData();
+    private QuestData _questData   = new QuestData();
 
     private string SAVE_DATA_DIRECTORY;
-    private string SAVE_FILENAME = "SaveFile.txt";
+    private string SAVE_FILENAME  = "SaveFile.txt";
+    private string SAVE_QUESTNAME = "QuestSave.txt";
 
     private PlayerMoveCtrl _moveCtrl;
     private StatusCtrl _statusCtrl;
     private Inventory _inven;
 
+    #region Singleton
     private static Save_Load instance;
 
     public static Save_Load Instance
@@ -53,14 +75,16 @@ public class Save_Load : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    // Start is called before the first frame update
+    #endregion
+    
     void Start()
     {
         SAVE_DATA_DIRECTORY = Application.dataPath + "/Saves/";
 
-        if(Directory.Exists(SAVE_DATA_DIRECTORY))
-            Directory.CreateDirectory(SAVE_DATA_DIRECTORY);
+        if (Directory.Exists(SAVE_DATA_DIRECTORY))
+        {
+            Directory.CreateDirectory(SAVE_DATA_DIRECTORY);            
+        }
     }
 
     public void InitializeData()
@@ -76,47 +100,63 @@ public class Save_Load : MonoBehaviour
         _playerData._invenArrayNumber.Clear();
         _playerData._invenItemName.Clear();
         _playerData._invenItemNumber.Clear();
+        _playerData._questDataList.Clear();
+
+        _questData._isCompleted = false;
+        _questData._questConditionCurCount = 0;
+        _questData._questConditionMax = 0;
+        _questData._questConditionString = string.Empty;
+        _questData._questDescription = string.Empty;
+        _questData._questID = 0;
+        _questData._questName = string.Empty;
+        _questData._questReward = 0;
 
         string json = JsonUtility.ToJson(_playerData, true);
+        string jsonQuest = JsonUtility.ToJson(_questData, true);
 
         File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, json); // 경로 + 파일 이름
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME, jsonQuest); // 경로 + 파일 이름
 
-        Debug.Log("초기화 완료");
-        Debug.Log(json);
+        Debug.Log("초기화 완료");        
     }
 
     public void SaveData()
     {                 
         SavePlayerData();
         SaveInventoryData();
-       
+        SaveQuestData();                
 
-        string json = JsonUtility.ToJson(_playerData, true);
-
-        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, json); // 경로 + 파일 이름
-                
-
-        Debug.Log("저장 완료");
-        Debug.Log(json);
+        Debug.Log("저장 완료");        
     }
 
     public void LoadData()
     {
         if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_FILENAME))
         {
-            string loadJson = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME);
-            _playerData = JsonUtility.FromJson<PlayerData>(loadJson);
-
+            string loadJsonPlayer = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME);
+            _playerData = JsonUtility.FromJson<PlayerData>(loadJsonPlayer);
             LoadPlayerData();
-            LoadInventoryData();                      
+            LoadInventoryData();
+            
+            Debug.Log("플레이어 데이터 로드 완료");
+        }
+        else
+            Debug.Log("세이브 파일이 없습니다.");
 
-            Debug.Log("로드 완료");
+        if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME))
+        {
+            string loadJsonQuest = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME);
+            _questData = JsonUtility.FromJson<QuestData>(loadJsonQuest);
+
+            LoadQuestData();
+
+            Debug.Log("퀘스트 데이터 로드 완료");
         }
         else
             Debug.Log("세이브 파일이 없습니다.");
     }
 
-    private void SavePlayerData()
+    public void SavePlayerData()
     {
         _moveCtrl = FindObjectOfType<PlayerMoveCtrl>();
         _statusCtrl = FindObjectOfType<StatusCtrl>();
@@ -126,10 +166,13 @@ public class Save_Load : MonoBehaviour
 
         _playerData._playerHp = _statusCtrl._Hp;
         _playerData._playerMp = _statusCtrl._Mp;
-        //_playerData._playerSp = _statusCtrl._CurrentSp;
+
+        string jsonPlayer = JsonUtility.ToJson(_playerData, true);
+
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, jsonPlayer); // 경로 + 파일 이름
     }
 
-    private void SaveInventoryData()
+    public void SaveInventoryData()
     {
         _inven = FindObjectOfType<Inventory>();
 
@@ -145,9 +188,36 @@ public class Save_Load : MonoBehaviour
                 _playerData._invenItemNumber.Add(slots[i]._itemCount);
             }
         }
+
+        string jsonPlayer = JsonUtility.ToJson(_playerData, true);
+
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, jsonPlayer); // 경로 + 파일 이름
+    }
+    public void SaveQuestData()
+    {
+        _playerData._questDataList.Clear();
+        
+        foreach(Quest quest in QuestManager.Instance._quests)
+        {
+            _questData._questID = quest._questID;
+            _questData._questName = quest._questName;
+            _questData._questDescription = quest._questDescription;
+            _questData._questConditionCurCount = quest._questConditionCurCount;
+            _questData._questConditionMax = quest._questConditionMax;
+            _questData._questConditionString = quest._questConditionString;
+            _questData._questReward = quest._questReward;
+
+            _playerData._questDataList.Add(_questData);
+        }
+
+        string jsonPlayer = JsonUtility.ToJson(_playerData, true);
+        string jsonQuest = JsonUtility.ToJson(_questData, true);
+
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, jsonPlayer);
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME, jsonQuest); // 경로 + 파일 이름
     }
 
-    private void LoadPlayerData()
+    public void LoadPlayerData()
     {
         _moveCtrl = FindObjectOfType<PlayerMoveCtrl>();
         _statusCtrl = FindObjectOfType<StatusCtrl>();
@@ -156,11 +226,10 @@ public class Save_Load : MonoBehaviour
         _moveCtrl.gameObject.transform.eulerAngles = _playerData._playerRot;
 
         _statusCtrl._Hp = _playerData._playerHp;
-        _statusCtrl._Mp = _playerData._playerMp;
-        //_statusCtrl._CurrentSp = _playerData._playerSp;
+        _statusCtrl._Mp = _playerData._playerMp;        
     }
 
-    private void LoadInventoryData()
+    public void LoadInventoryData()
     {
         _inven = FindObjectOfType<Inventory>();
 
@@ -170,6 +239,22 @@ public class Save_Load : MonoBehaviour
         {
             _inven.LoadToInven(_playerData._invenArrayNumber[i],
                                _playerData._invenItemName[i], _playerData._invenItemNumber[i]);
+        }
+    }
+
+
+    public void LoadQuestData()
+    {
+        QuestManager.Instance._quests.Clear();
+
+        foreach (QuestData questData in _playerData._questDataList)
+        {
+            Quest quest = new Quest(questData._questID, questData._questName, questData._questDescription,
+                                    questData._questReward, questData._questConditionString, questData._questConditionCurCount,
+                                    questData._questConditionMax);      
+            quest._IsCompleted = questData._isCompleted;
+
+            QuestManager.Instance._quests.Add(quest);
         }
     }
 }

@@ -1,18 +1,30 @@
 {
     "_playerPos": {
-        "x": 1.549011468887329,
-        "y": -0.30518895387649538,
-        "z": -2.2250308990478517
+        "x": -16.61399269104004,
+        "y": 0.2950979471206665,
+        "z": -56.945552825927737
     },
     "_playerRot": {
         "x": 0.0,
-        "y": 263.800048828125,
+        "y": 117.99993133544922,
         "z": 0.0
     },
-    "_playerGold": 10000,
+    "_playerGold": 15000,
     "_playerHp": 100,
     "_playerMp": 100,
     "_invenArrayNumber": [],
     "_invenItemName": [],
-    "_invenItemNumber": []
+    "_invenItemNumber": [],
+    "_questDataList": [
+        {
+            "_questID": 1,
+            "_questName": "재앙을 막아라!",
+            "_questDescription": "마을 근처로 위험한 몬스터가 오고있다네.\n마을을위해 가서 처리해주게!",
+            "_questReward": 10000,
+            "_questConditionString": "보스 몬스터 처치",
+            "_questConditionCurCount": 0,
+            "_questConditionMax": 1,
+            "_isCompleted": false
+        }
+    ]
 }

@@ -5,8 +5,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int _gold;
-    public int _Gold { get { return _gold; } set { _gold = value; } }    
+    public int _Gold { get { return _gold; } set { _gold = value; } }
 
+    public bool _uiActive = false;
+    public bool _UiActive { get { return _uiActive; } set { _uiActive = value; } }
+
+    public bool _isDungeon = false;
+    public bool _IsDungeon { get { return _isDungeon; } set { _isDungeon = value; } }
+
+    #region Sigleton
     private static GameManager instance;
 
     public static GameManager Instance
@@ -32,10 +39,12 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    #endregion
 
 
     private void OnApplicationQuit()
     {
-        Save_Load.Instance.SaveData();        
+        if(_IsDungeon == false)
+            Save_Load.Instance.SaveData();        
     }
 }
