@@ -12,8 +12,15 @@ public class PlayerMoveCtrl : MonoBehaviour
     [SerializeField]
     private float _playerRotateSpeed = 10f;
 
-    // 달리는지 체크
+    [SerializeField]
+    private float _jumpForce;
+
+    // 상태 변수
     private bool _isRun = false;
+    public bool _isGround = true;
+
+    // 땅 착지 여부
+    private CapsuleCollider _capsuleCollider;
 
     [Header("Camera Attribute")]    
     [SerializeField]
@@ -40,6 +47,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         _applySpeed = _playerSpeed;
         _rigid      = GetComponent<Rigidbody>();
         _animCtrl   = GetComponent<PlayerAnimCtrl>();
+        _capsuleCollider = GetComponent<CapsuleCollider>();
         _statusCtrl = FindObjectOfType<StatusCtrl>();
     }
     
@@ -74,8 +82,12 @@ public class PlayerMoveCtrl : MonoBehaviour
 
     private void Update()
     {
-        if(UiManager._isUiActivated == false)
+        if (UiManager._isUiActivated == false)
+        {
+            IsGround();
+            TryJump();
             TryRun();
+        }
 
         if (Input.GetKeyUp(KeyCode.LeftAlt))
         {
@@ -85,6 +97,26 @@ public class PlayerMoveCtrl : MonoBehaviour
     }
 
     #region Rigid(O) Move
+
+    private void IsGround()
+    {
+        Vector3 myTr = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        _isGround = Physics.Raycast(myTr, Vector3.down, _capsuleCollider.bounds.extents.y + 0.1f);
+        Debug.DrawRay(transform.position, Vector3.down * (_capsuleCollider.bounds.extents.y + 0.1f), Color.red);
+    }
+
+    private void TryJump()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && _isGround == true)
+        {
+            Jump();
+        }
+    }
+
+    private void Jump()
+    {
+        _rigid.velocity = transform.up * _jumpForce;
+    }
 
     private void TryRun()
     {

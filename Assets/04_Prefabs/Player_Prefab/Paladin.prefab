@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &849951316
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 849951317}
-  m_Layer: 6
-  m_Name: KatanaWeaponPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &849951317
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849951316}
-  m_LocalRotation: {x: -0.3888621, y: 0.6854525, z: 0.53990066, w: -0.29571703}
-  m_LocalPosition: {x: -0.079, y: 0.158, z: 0.006}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4615416519116770}
-  m_Father: {fileID: 8125756318538326053}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -30.675, y: -106.35, z: 277.656}
 --- !u!1 &384569635424139140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,7 +2309,6 @@ Transform:
   m_Children:
   - {fileID: 8125756317737727132}
   - {fileID: 8125756318374460622}
-  - {fileID: 849951317}
   m_Father: {fileID: 7598083412953956575}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2363,7 +2330,7 @@ MonoBehaviour:
   _swords:
   - {fileID: 2034595488614103949}
   - {fileID: 4725155683302334164}
-  - {fileID: 375700703}
+  - {fileID: 0}
   _swordCtrl: {fileID: 1687872147}
 --- !u!114 &1687872147
 MonoBehaviour:
@@ -2377,7 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a7636266344b94986a1e3cb88126c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentSword: {fileID: 375700703}
+  _currentSword: {fileID: 0}
   _swordEffect: {fileID: 0}
   _animCtrl: {fileID: 8936572676152902209}
   _moveCtrl: {fileID: 8936572676152902211}
@@ -2937,91 +2904,6 @@ Transform:
   m_Father: {fileID: 8597025534238398716}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1431685204
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 849951317}
-    m_Modifications:
-    - target: {fileID: 1582112514438896, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_Name
-      value: Old Katana
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
---- !u!1 &1582111655935652 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1582112514438896, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-  m_PrefabInstance: {fileID: 1431685204}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &375700703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582111655935652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f376be0931442504195dae20ce907cb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _swordName: Old Katana
-  _swordType: 0
-  _swordSpeed: 1.2
-  _damage: 30
-  _muzzleFlash: {fileID: 0}
-  _swordSound: {fileID: 0}
---- !u!4 &4615416519116770 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4615415666380726, guid: 7563a5ac75b63df42aeae0fe46dd17df, type: 3}
-  m_PrefabInstance: {fileID: 1431685204}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8125756317190177194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3136,7 +3018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398047969005088, guid: 97182de25a3c50f4797554ef9f9cc642, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4967289912243710, guid: 97182de25a3c50f4797554ef9f9cc642, type: 3}
       propertyPath: m_RootOrder
