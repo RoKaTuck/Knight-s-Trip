@@ -50,7 +50,7 @@ public class PlayerAttackCtrl : MonoBehaviour
                 break;
 
             MonsterCtrl monster = monsters[i].GetComponent<MonsterCtrl>();
-            monster._hp -= 100;
+            monster._hp -= 100 - monster._def;
 
             Debug.Log($"이름 : {monster._name} 피격!");
         }

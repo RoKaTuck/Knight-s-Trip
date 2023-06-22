@@ -6,6 +6,8 @@ public class DungeonManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _townPortal;
+    [SerializeField]
+    private GameObject _bossPotalEntrance;
 
     public int _questId = 0;
     public int _mosnterCount;
@@ -24,7 +26,7 @@ public class DungeonManager : MonoBehaviour
         get
         {
             if (_instance == null)
-                _instance = new DungeonManager();
+                return null;
             return _instance;
         }
     }
@@ -52,10 +54,13 @@ public class DungeonManager : MonoBehaviour
 
     private void ActivePotal()
     {
-        if(_dungeonClear == true)
+        if(DungeonClear == true)
         {
-            _dungeonClear = false;
+            if (_bossPotalEntrance != null)
+                _bossPotalEntrance.SetActive(false);
+
             _townPortal.SetActive(true);
+            DungeonClear = false;
         }
     }
 }

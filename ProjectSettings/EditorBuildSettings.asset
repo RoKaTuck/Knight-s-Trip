@@ -12,15 +12,21 @@ EditorBuildSettings:
     path: Assets/05_Scenes/1_SelectPage.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/05_Scenes/Load_GamePage.unity
-    guid: cf699412388853c4d9e21612d0dea1fb
-  - enabled: 1
     path: Assets/05_Scenes/2_GamePage.unity
     guid: 08adb4054bb52c749b341537104e585d
   - enabled: 1
     path: Assets/05_Scenes/3_CemetryPage.unity
     guid: b475c139dd123534a9c2b7cda5de4d6f
   - enabled: 1
+    path: Assets/05_Scenes/4_BossPage.unity
+    guid: 941b040f01e5c204386481787e9b5548
+  - enabled: 1
+    path: Assets/05_Scenes/Load_GamePage.unity
+    guid: cf699412388853c4d9e21612d0dea1fb
+  - enabled: 1
     path: Assets/05_Scenes/Load_CemetryPage.unity
     guid: bc4e65c2a97f4184d9b14f7fbc53c13c
+  - enabled: 1
+    path: Assets/05_Scenes/Load_BossPage.unity
+    guid: f65f48e8e01f84b49af1808a471dbbf5
   m_configObjects: {}

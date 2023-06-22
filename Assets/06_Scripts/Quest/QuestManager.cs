@@ -22,7 +22,7 @@ public class QuestManager : MonoBehaviour
         get 
         {
             if (instance == null)
-                instance = new QuestManager();
+                return null;
             return instance;
         }
     }

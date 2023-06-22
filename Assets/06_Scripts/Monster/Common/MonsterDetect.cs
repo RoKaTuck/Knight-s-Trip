@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterDetect : MonoBehaviour
-{
-    [SerializeField]
-    private bool _inSight = false;
+{    
+    public bool _inSight = false;
     
     public float _viewAngle; // 시야 각도    
     public float _viewDistance; // 시야 거리
@@ -62,14 +61,12 @@ public class MonsterDetect : MonoBehaviour
         return _findPlayer;
     }
 
-    public bool DetectForWakeUp(float radius)
+    public bool DetectForWakeUp(Vector3 originPos, float radius)
     {        
-        Collider[] cols = Physics.OverlapSphere(transform.position, radius, 1 << 6);
+        Collider[] cols = Physics.OverlapSphere(originPos, radius, 1 << 6);
 
         if (cols.Length > 0)
-            _inSight = true;
-
-        
+            _inSight = true;        
 
         return _inSight;
     }

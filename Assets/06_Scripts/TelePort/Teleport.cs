@@ -23,13 +23,23 @@ public class TownTeleport : BaseTeleport
     }
 }
 
+public class BossStageTeleport : BaseTeleport
+{
+    private string _sceneName = "Load_BossPage";
+
+    public override void TransferDestination()
+    {
+        SceneManager.LoadSceneAsync(_sceneName);
+    }
+}
 
 public class Teleport : MonoBehaviour
 {
    public enum eTeleportType
     {
+        Town,
         Cemetry,
-        Town
+        BossStage
     }
 
     public eTeleportType _teleportType = eTeleportType.Cemetry;
@@ -41,12 +51,21 @@ public class Teleport : MonoBehaviour
     [SerializeField]
     UiManager _uiManager;
 
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && _isDungeon == true)
-            _uiManager.ShowCemetryDungeonUI();
-        else if (other.CompareTag("Player") && _isDungeon == false)
+        if (other.CompareTag("Player") && _isDungeon == false)
+        {
+            switch(_teleportType)
+            {
+                case eTeleportType.Cemetry:
+                    _uiManager.ShowCemetryDungeonUI();
+                    break;
+                case eTeleportType.BossStage:
+                    _uiManager.ShowBossStageDungeonUI();
+                    break;
+            }            
+        }
+        else if (other.CompareTag("Player") && _isDungeon == true)
             Transfer();
     }
 
@@ -58,11 +77,6 @@ public class Teleport : MonoBehaviour
 
         switch(_teleportType)
         {
-            case eTeleportType.Cemetry:                
-                baseTeleport = new CemetryTeleport();
-                Save_Load.Instance.SaveData();
-                baseTeleport.TransferDestination();
-                break;
             case eTeleportType.Town:                
                 baseTeleport = new TownTeleport();
                 Save_Load.Instance.SaveInventoryData();
@@ -70,7 +84,16 @@ public class Teleport : MonoBehaviour
                 GameManager.Instance._IsDungeon = false;
                 baseTeleport.TransferDestination();
                 break;
-
+            case eTeleportType.Cemetry:                
+                baseTeleport = new CemetryTeleport();
+                Save_Load.Instance.SaveData();
+                baseTeleport.TransferDestination();
+                break;
+            case eTeleportType.BossStage:
+                baseTeleport = new BossStageTeleport();
+                Save_Load.Instance.SaveData();
+                baseTeleport.TransferDestination();
+                break;
         }        
     }
 }

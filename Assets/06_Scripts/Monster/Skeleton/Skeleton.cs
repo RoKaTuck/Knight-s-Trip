@@ -68,8 +68,9 @@ public class Skeleton : MonsterCtrl
 
         QuestManager.Instance.InceaseQuestCondition(DungeonManager.Instance._questId, 1);
         DungeonManager.Instance.MonsterCount -= 1;
+
         if (DungeonManager.Instance.MonsterCount <= 0)
-            DungeonManager.Instance.CanSapwnBoss = true;
+            DungeonManager.Instance.DungeonClear = true;
 
         gameObject.DestroyAPS();
 
@@ -178,7 +179,7 @@ public class Skeleton : MonsterCtrl
 
     public override void Idle()
     {                
-        if(_monsterDetect.DetectForWakeUp(_detectForWakeUp.radius) == true)
+        if(_monsterDetect.DetectForWakeUp(transform.position, _detectForWakeUp.radius) == true)
         {            
             _skeletonAnim.IdleAnim();
             _navAgent.enabled = true;

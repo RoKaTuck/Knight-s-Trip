@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bearName: Mutation Bear
   _hp: 100
-  _atk: 10
+  _dmg: 20
   _def: 8
-  _moveSpeed: 3
+  _speed: 3

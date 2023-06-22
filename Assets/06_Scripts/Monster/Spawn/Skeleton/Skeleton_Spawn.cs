@@ -5,12 +5,8 @@ using UnityEngine;
 public class Skeleton_Spawn : SpawnManager
 {
     [SerializeField]
-    private GameObject _warriorSkeletonPrefab;
-    [SerializeField]
-    private GameObject _bossSkeletonPrefab;
-    [SerializeField]
-    private Transform _bossSpawnPos;
-
+    private GameObject _warriorSkeletonPrefab;    
+    
     public int _spawnCount;
 
     private ObjectPoolingSystem _poolingSystem;
@@ -25,30 +21,20 @@ public class Skeleton_Spawn : SpawnManager
         DungeonManager.Instance.MonsterCount = _spawnCount;
 
         for (int i = 1; i < _spawnPos.Length; ++i)
-        {
             CreateMonster(_spawnPos[i]);            
-        }
     }
 
     private void Update()
     {
-        if (DungeonManager.Instance._mosnterCount <= 0 && DungeonManager.Instance.CanSapwnBoss == false)
+        if (DungeonManager.Instance.MonsterCount <= 0 && DungeonManager.Instance.DungeonClear == false)
         {
-            CreateBoss();
-            DungeonManager.Instance.CanSapwnBoss = true;
+            DungeonManager.Instance.DungeonClear = true;
         }
     }
 
     public override void CreateMonster(Transform spawnPos)
     {        
         var newMonster = _poolingSystem.InstantiateAPS("SkeletonWarrior",
-                         spawnPos.position, spawnPos.rotation, Vector3.one);   
-                
-    }
-
-    public override void CreateBoss()
-    {
-        Instantiate(_bossSkeletonPrefab, _bossSpawnPos.position, Quaternion.identity);
-        //DungeonManager.Instance.CanSapwnBoss = false;
-    }
+                         spawnPos.position, spawnPos.rotation, Vector3.one);                   
+    }    
 }

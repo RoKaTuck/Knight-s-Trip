@@ -17,6 +17,7 @@ public class MonsterCtrl : FSM<MonsterCtrl>, IMonsterBase
 
     public bool _patrolStart = false;
     protected SkeletonAnim _skeletonAnim;
+    protected BossBearAnim _bossBearAnim;    
 
     private void Update()
     {

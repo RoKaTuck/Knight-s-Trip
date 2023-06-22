@@ -9,7 +9,9 @@ public class UiManager : MonoBehaviour
     public static bool _isUiActivated = false;
 
     [SerializeField, Header("UiManager Attribute")]
-    private GameObject _cemetryDugeonObj;    
+    private GameObject _cemetryDugeonObj;
+    [SerializeField]
+    private GameObject _bossStageDungeonObj;
 
     private GameObject _curShowDungeonUi;
 
@@ -17,7 +19,16 @@ public class UiManager : MonoBehaviour
     {
         _isUiActivated = true;
         _curShowDungeonUi = _cemetryDugeonObj;
-        _cemetryDugeonObj.SetActive(true);
+
+        _curShowDungeonUi.SetActive(true);
+    }
+
+    public void ShowBossStageDungeonUI()
+    {
+        _isUiActivated = true;
+        _curShowDungeonUi = _bossStageDungeonObj;
+
+        _curShowDungeonUi.SetActive(true);
     }
 
     public void CloseDugeonUI()
