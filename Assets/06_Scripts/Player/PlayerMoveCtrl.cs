@@ -62,7 +62,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         else
         {
             _animCtrl.MoveAnim(0, 0);
-            _animCtrl.SprintAnim(false);
+            //_animCtrl.SprintAnim(false);
         }
 
         if (Input.GetKey(KeyCode.LeftAlt))
@@ -108,9 +108,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     private void TryJump()
     {
         if(Input.GetKeyDown(KeyCode.Space) && _isGround == true)
-        {
             Jump();
-        }
     }
 
     private void Jump()
@@ -127,19 +125,14 @@ public class PlayerMoveCtrl : MonoBehaviour
     }
 
     private void Running()
-    {
-        _isRun      = true;
+    {        
         _applySpeed = _playerRunSpeed;
-        _statusCtrl.DecreaseStamina(10);
-        _animCtrl.SprintAnim(_isRun);
+        _statusCtrl.DecreaseStamina(10);        
     }
 
     private void RunningCancel()
-    {
-        _isRun      = false;
-        _applySpeed = _playerSpeed;
-
-        _animCtrl.SprintAnim(_isRun);
+    {        
+        _applySpeed = _playerSpeed;        
     }
 
     private void CharacterRotation()
@@ -163,16 +156,13 @@ public class PlayerMoveCtrl : MonoBehaviour
 
         _rigid.MovePosition(transform.position + velocity * Time.deltaTime);
 
-        if (_isRun == false)
-        {
-            if ((inputX <= 0.1f && inputX > 0) || (inputX >= -0.01 && inputX < 0))
-                inputX = 0f;
+        if ((inputX <= 0.1f && inputX > 0) || (inputX >= -0.01 && inputX < 0))
+            inputX = 0f;
 
-            if ((inputZ <= 0.1f && inputZ > 0) || (inputZ >= -0.02 && inputZ < 0))
-                inputZ = 0f;
+        if ((inputZ <= 0.1f && inputZ > 0) || (inputZ >= -0.02 && inputZ < 0))
+            inputZ = 0f;
 
-            _animCtrl.MoveAnim(inputX, inputZ);
-        }
+        _animCtrl.MoveAnim(inputX, inputZ);  
     }
 
     private void CameraRotation()

@@ -2625,7 +2625,7 @@ MonoBehaviour:
   _playerSpeed: 3
   _playerRunSpeed: 10
   _playerRotateSpeed: 12
-  _jumpForce: 4
+  _jumpForce: 6
   _isGround: 1
   _cameraRotationLimit: 45
   _lookSensitivity: 4

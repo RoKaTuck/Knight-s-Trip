@@ -32,12 +32,11 @@ public class Skeleton_Spawn : SpawnManager
 
     private void Update()
     {
-        // 한마리만 소환하게 만들어야함
-        if (DungeonManager.Instance.CanSapwnBoss == true)
+        if (DungeonManager.Instance._mosnterCount <= 0 && DungeonManager.Instance.CanSapwnBoss == false)
+        {
             CreateBoss();
-
-        if (DungeonManager.Instance._mosnterCount <= 0)
             DungeonManager.Instance.CanSapwnBoss = true;
+        }
     }
 
     public override void CreateMonster(Transform spawnPos)
@@ -49,8 +48,7 @@ public class Skeleton_Spawn : SpawnManager
 
     public override void CreateBoss()
     {
-        DungeonManager.Instance.CanSapwnBoss = false;
-
         Instantiate(_bossSkeletonPrefab, _bossSpawnPos.position, Quaternion.identity);
+        //DungeonManager.Instance.CanSapwnBoss = false;
     }
 }

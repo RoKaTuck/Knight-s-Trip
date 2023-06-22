@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public bool _isDungeon = false;
     public bool _IsDungeon { get { return _isDungeon; } set { _isDungeon = value; } }
 
-    #region Sigleton
+    #region Singleton
     private static GameManager instance;
 
     public static GameManager Instance
