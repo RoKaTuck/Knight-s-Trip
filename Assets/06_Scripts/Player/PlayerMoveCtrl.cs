@@ -8,15 +8,12 @@ public class PlayerMoveCtrl : MonoBehaviour
     private float _playerSpeed = 5f;
     [SerializeField]
     private float _playerRunSpeed;
-    private float _applySpeed;
-    [SerializeField]
-    private float _playerRotateSpeed = 10f;
+    private float _applySpeed;    
 
     [SerializeField]
     private float _jumpForce;
 
-    // 상태 변수
-    private bool _isRun = false;
+    // 상태 변수    
     public bool _isGround = true;
 
     // 땅 착지 여부

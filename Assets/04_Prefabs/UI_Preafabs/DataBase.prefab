@@ -60,3 +60,4 @@ MonoBehaviour:
   _weaponManager: {fileID: 0}
   _statusCtrl: {fileID: 0}
   _slotToolTip: {fileID: 0}
+  _weaponPanel: {fileID: 0}

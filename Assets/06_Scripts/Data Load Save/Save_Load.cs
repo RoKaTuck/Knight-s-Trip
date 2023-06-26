@@ -3,52 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-[System.Serializable]
-public class PlayerData
-{
-    // 플레이어 위치
-    public Vector3 _playerPos;
-    public Vector3 _playerRot;
-
-    // 플레이어 스텟
-    public int _playerGold;
-    public int _playerHp;
-    public int _playerMp;
-    
-    // 플레이어 인벤토리
-    public List<int> _invenArrayNumber = new List<int>();
-    public List<string> _invenItemName = new List<string>();
-    public List<int> _invenItemNumber = new List<int>();
-
-    // 플레이어 퀘스트
-    public List<QuestData> _questDataList = new List<QuestData>();
-}
-
-[System.Serializable]
-public class QuestData
-{
-    public int _questID; // 퀘스트 아이디
-    public string _questName; // 퀘스트 이름    
-    public string _questDescription; // 퀘스트 설명
-    public int _questReward; // 보상
-    public string _questConditionString;
-    public int _questConditionCurCount = 0; // 현재 퀘스트 수집 혹은 사냥 수 
-    public int _questConditionMax; // 퀘스트 수집 혹은 사냥 최대 수
-    public bool _isCompleted; // 퀘스트 완료 여부
-}
 
 public class Save_Load : MonoBehaviour
 {
     private PlayerData _playerData = new PlayerData();
-    private QuestData _questData   = new QuestData();
+    private QuestData _questData = new QuestData();
+    private EquipData _equipData = new EquipData();
+    private TownQuestData _townQuestData = new TownQuestData();
 
     private string SAVE_DATA_DIRECTORY;
-    private string SAVE_FILENAME  = "SaveFile.txt";
+    private string SAVE_FILENAME = "SaveFile.txt";
     private string SAVE_QUESTNAME = "QuestSave.txt";
+    private string SAVE_EQUIPNAME = "EquipFile.txt";
+    private string SAVE_TOWNQUESTNAME = "TownQuest.txt";
 
     private PlayerMoveCtrl _moveCtrl;
     private StatusCtrl _statusCtrl;
     private Inventory _inven;
+    private WeaponPanel _weaponPanel;
 
     #region Singleton
     private static Save_Load instance;
@@ -66,24 +38,24 @@ public class Save_Load : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {            
+        {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
-        {            
+        {
             Destroy(gameObject);
         }
     }
     #endregion
-    
+
     void Start()
     {
         SAVE_DATA_DIRECTORY = Application.dataPath + "/Saves/";
 
         if (Directory.Exists(SAVE_DATA_DIRECTORY))
         {
-            Directory.CreateDirectory(SAVE_DATA_DIRECTORY);            
+            Directory.CreateDirectory(SAVE_DATA_DIRECTORY);
         }
     }
 
@@ -117,16 +89,18 @@ public class Save_Load : MonoBehaviour
         File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, json); // 경로 + 파일 이름
         File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME, jsonQuest); // 경로 + 파일 이름
 
-        Debug.Log("초기화 완료");        
+        Debug.Log("초기화 완료");
     }
 
     public void SaveData()
-    {                 
+    {
         SavePlayerData();
         SaveInventoryData();
-        SaveQuestData();                
+        SaveQuestData();
+        SaveWeaponPanelData();
+        SaveTownQuestData();
 
-        Debug.Log("저장 완료");        
+        Debug.Log("저장 완료");
     }
 
     public void LoadData()
@@ -137,11 +111,11 @@ public class Save_Load : MonoBehaviour
             _playerData = JsonUtility.FromJson<PlayerData>(loadJsonPlayer);
             LoadPlayerData();
             LoadInventoryData();
-            
+
             Debug.Log("플레이어 데이터 로드 완료");
         }
         else
-            Debug.Log("세이브 파일이 없습니다.");
+            Debug.Log("플레이어 파일이 없습니다.");
 
         if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME))
         {
@@ -153,7 +127,28 @@ public class Save_Load : MonoBehaviour
             Debug.Log("퀘스트 데이터 로드 완료");
         }
         else
-            Debug.Log("세이브 파일이 없습니다.");
+            Debug.Log("퀘스트 파일이 없습니다.");
+
+        if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME))
+        {
+            string loadJsonEquip = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME);
+            _equipData = JsonUtility.FromJson<EquipData>(loadJsonEquip);
+
+            LoadEquipData();
+
+            Debug.Log("장비창 데이터 로드 완료");
+        }
+        else
+            Debug.Log("장비창 파일이 없습니다.");
+
+        if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_TOWNQUESTNAME))
+        {
+            LoadTownQuestData();
+
+            Debug.Log("마을 퀘스트 NPC 데이터 로드 완료");
+        }
+        else
+            Debug.Log("마을 퀘스트 NPC 데이터 파일이 없습니다.");
     }
 
     public void SavePlayerData()
@@ -183,6 +178,7 @@ public class Save_Load : MonoBehaviour
         {
             if (slots[i]._item != null)
             {
+                _playerData._invenitemIdx.Add(slots[i]._item._itemID);
                 _playerData._invenArrayNumber.Add(i);
                 _playerData._invenItemName.Add(slots[i]._item._itemName);
                 _playerData._invenItemNumber.Add(slots[i]._itemCount);
@@ -193,11 +189,32 @@ public class Save_Load : MonoBehaviour
 
         File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, jsonPlayer); // 경로 + 파일 이름
     }
+
+    public void SaveWeaponPanelData()
+    {
+        _weaponPanel = FindObjectOfType<WeaponPanel>();
+        List<Item> items = _weaponPanel.GetItem();
+
+        _equipData._equipItemIdx.Clear();
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] != null)
+            {
+                _equipData._equipItemIdx.Add(items[i]._itemID);
+            }
+        }
+
+        string jsonEquip = JsonUtility.ToJson(_equipData, true);
+
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME, jsonEquip); // 경로 + 파일 이름
+    }
+
     public void SaveQuestData()
     {
         _playerData._questDataList.Clear();
-        
-        foreach(Quest quest in QuestManager.Instance._quests)
+
+        foreach (Quest quest in QuestManager.Instance._quests)
         {
             _questData._questID = quest._questID;
             _questData._questName = quest._questName;
@@ -217,6 +234,17 @@ public class Save_Load : MonoBehaviour
         File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME, jsonQuest); // 경로 + 파일 이름
     }
 
+    public void SaveTownQuestData()
+    {
+        QuestNpc questNpc = FindObjectOfType<QuestNpc>();
+
+        _townQuestData._npcQuestData = questNpc._quest;
+
+        string jsonTownQuest = JsonUtility.ToJson(_townQuestData, true);
+
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_TOWNQUESTNAME, jsonTownQuest);
+    }
+
     public void LoadPlayerData()
     {
         _moveCtrl = FindObjectOfType<PlayerMoveCtrl>();
@@ -226,7 +254,7 @@ public class Save_Load : MonoBehaviour
         _moveCtrl.gameObject.transform.eulerAngles = _playerData._playerRot;
 
         _statusCtrl._Hp = _playerData._playerHp;
-        _statusCtrl._Mp = _playerData._playerMp;        
+        _statusCtrl._Mp = _playerData._playerMp;
     }
 
     public void LoadInventoryData()
@@ -242,6 +270,15 @@ public class Save_Load : MonoBehaviour
         }
     }
 
+    public void LoadEquipData()
+    {
+        _weaponPanel = FindObjectOfType<WeaponPanel>();
+
+        for (int i = 0; i < _equipData._equipItemIdx.Count; i++)
+        {
+            _weaponPanel.LoadToEquip(_equipData._equipItemIdx[i]);
+        }
+    }
 
     public void LoadQuestData()
     {
@@ -251,10 +288,20 @@ public class Save_Load : MonoBehaviour
         {
             Quest quest = new Quest(questData._questID, questData._questName, questData._questDescription,
                                     questData._questReward, questData._questConditionString, questData._questConditionCurCount,
-                                    questData._questConditionMax);      
+                                    questData._questConditionMax);
             quest._IsCompleted = questData._isCompleted;
 
             QuestManager.Instance._quests.Add(quest);
         }
+    }
+
+    public void LoadTownQuestData()
+    {
+        string loadJsonTownQuest = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_TOWNQUESTNAME);
+        _townQuestData = JsonUtility.FromJson<TownQuestData>(loadJsonTownQuest);
+
+        QuestNpc questNpc = FindObjectOfType<QuestNpc>();
+
+        questNpc._quest = _townQuestData._npcQuestData;
     }
 }

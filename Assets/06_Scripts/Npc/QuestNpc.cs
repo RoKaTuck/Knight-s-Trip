@@ -8,9 +8,8 @@ public class QuestNpc : NpcCtrl
 {
     [SerializeField]
     private TextMeshProUGUI _descriptionText;
-
-    [SerializeField]
-    private List<Quest> _quest = new List<Quest>(); // NPC가 주는 퀘스트
+    
+    public List<Quest> _quest = new List<Quest>(); // NPC가 주는 퀘스트
 
     // 필요한 컴포넌트
     [SerializeField]
@@ -38,6 +37,7 @@ public class QuestNpc : NpcCtrl
             _quest.RemoveAt(0);    
             _clearBtn.SetActive(false);
             _consentRefuseBtn.SetActive(true);
+            Save_Load.Instance.SaveTownQuestData();
             CloseInteractionUi();
         }
         else

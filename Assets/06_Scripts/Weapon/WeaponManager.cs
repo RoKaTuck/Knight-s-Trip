@@ -7,6 +7,7 @@ public class WeaponManager : MonoBehaviour
 {
     // 무기 중복 교체 실행 방지
     public static bool _isChangeWeapon = false;
+    public static bool _WeaponActivated = false;
 
     // 현재 무기
     public static Transform _currentWeapon;
@@ -14,6 +15,8 @@ public class WeaponManager : MonoBehaviour
     // 현재 무기의 타입.
     [SerializeField]
     private string _currentWeaponType;
+    [SerializeField]
+    private GameObject _weaponPanel;
 
     // 무기 교체 딜레이, 무기 교체가 완전히 끝난 시점
     [SerializeField]
@@ -42,7 +45,9 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if(_isChangeWeapon == false)
+        TryOpenWeaponPanel();
+
+        if (_isChangeWeapon == false)
         {
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -70,6 +75,29 @@ public class WeaponManager : MonoBehaviour
 
         _currentWeaponType = type;
         _isChangeWeapon = false;
+    }
+
+    private void TryOpenWeaponPanel()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _WeaponActivated = !_WeaponActivated;
+
+            if (_WeaponActivated == true)
+                OpenWeaponPanel();
+            else
+                CloseWeaponPanel();
+        }
+    }
+
+    private void OpenWeaponPanel()
+    {
+        _weaponPanel.SetActive(true);
+    }
+
+    private void CloseWeaponPanel()
+    {
+        _weaponPanel.SetActive(false);
     }
 
     private void WeaponChange(WeaponAttack type, string name)

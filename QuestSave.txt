@@ -1,0 +1,10 @@
+{
+    "_questID": 0,
+    "_questName": "",
+    "_questDescription": "",
+    "_questReward": 0,
+    "_questConditionString": "",
+    "_questConditionCurCount": 0,
+    "_questConditionMax": 0,
+    "_isCompleted": false
+}

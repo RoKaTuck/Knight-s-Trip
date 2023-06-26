@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
 public class Item : ScriptableObject
 {
+    public int _itemID; // 아이템 아이디
     public string _itemName; // 아이템의 이름
     [TextArea]
     public string _itemDesc; // 아이템의 설명

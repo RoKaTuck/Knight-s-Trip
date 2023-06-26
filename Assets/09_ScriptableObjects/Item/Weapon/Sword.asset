@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03c15bac53cea44fa7188dfc6b20001, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
+  _itemID: 4001
   _itemName: Old Sword
   _itemDesc: "\uC77C\uBC18 \uC18C\uB4DC"
   _sellPrice: 770

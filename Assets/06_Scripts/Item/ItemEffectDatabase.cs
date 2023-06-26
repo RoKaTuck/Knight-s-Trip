@@ -23,9 +23,11 @@ public class ItemEffectDatabase : MonoBehaviour
     [SerializeField]
     private StatusCtrl _statusCtrl;
     [SerializeField]
-    private SlotToolTip _slotToolTip;
+    private SlotToolTip _slotToolTip;   
+    [SerializeField]
+    private WeaponPanel _weaponPanel;
 
-    private const string HP = "HP", MP = "MP", SP = "SP";
+    private const string HP = "HP", MP = "MP", SP = "SP";    
 
     public void ShowToolTip(Item item, Vector3 pos)
     {
@@ -37,25 +39,35 @@ public class ItemEffectDatabase : MonoBehaviour
         _slotToolTip.HideToolTip();
     }
 
-    public void UseItem(Item _item)
+    public void UseItem(Item item)
     {
-        if (_item._itemType == Item.eItemType.Weapon)
+        if (item._itemType == Item.eItemType.Weapon)
         {
             // 장착
             WeaponAttack weaponAttack = new WeaponSword();
-            if (_item._weaponType == "SWORD")
-                weaponAttack = new WeaponSword();
-            else if (_item._weaponType == "LONGSWORD")
-                weaponAttack = new WeaponLongSword();
+            if (item._weaponType == "SWORD")
+            {
+                weaponAttack = new WeaponSword();                
+            }
+            else if (item._weaponType == "LONGSWORD")
+            {
+                weaponAttack = new WeaponLongSword();                
+            }
+
+            _weaponPanel.SetWeaponSlotImage(item);
 
             if (weaponAttack != null)
-                StartCoroutine(_weaponManager.CRT_ChangeWeapon(weaponAttack, _item._weaponType, _item._itemName));
+                StartCoroutine(_weaponManager.CRT_ChangeWeapon(weaponAttack, item._weaponType, item._itemName));
         }
-        else if (_item._itemType == Item.eItemType.Used)
+        else if(item._itemType == Item.eItemType.Armor)
+        {            
+            _weaponPanel.SetWeaponSlotImage(item);
+        }
+        else if (item._itemType == Item.eItemType.Used)
         {
             for(int i = 0; i < _itemEffects.Length; i++)
             {
-                if (_itemEffects[i]._itemName == _item._itemName)
+                if (_itemEffects[i]._itemName == item._itemName)
                 {
                     for(int j = 0; j < _itemEffects[j]._part.Length; j++)
                     {
@@ -74,7 +86,7 @@ public class ItemEffectDatabase : MonoBehaviour
                                 Debug.Log("잘못된 Status 부위. HP, MP, SP만 가능합니다.");
                                 break;
                         }
-                        Debug.Log(_item._itemName + _itemEffects[i]._num[j] + " 을 사용했습니다.");
+                        Debug.Log(item._itemName + _itemEffects[i]._num[j] + " 을 사용했습니다.");
                     }
                     return;
                 }                

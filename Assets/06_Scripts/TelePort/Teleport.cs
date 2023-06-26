@@ -80,7 +80,7 @@ public class Teleport : MonoBehaviour
             case eTeleportType.Town:                
                 baseTeleport = new TownTeleport();
                 Save_Load.Instance.SaveInventoryData();
-                Save_Load.Instance.SaveQuestData();
+                Save_Load.Instance.SaveQuestData();                
                 GameManager.Instance._IsDungeon = false;
                 baseTeleport.TransferDestination();
                 break;

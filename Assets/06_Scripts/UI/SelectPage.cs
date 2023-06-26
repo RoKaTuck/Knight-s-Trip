@@ -20,7 +20,8 @@ public class SelectPage : MonoBehaviour
 
     // 기존에 있던 데이터를 지우고 새로 만들 지 질문 후 실행
     public void OnClickStartGameBtn()
-    {        
+    {
+        //TestSaveLoad.Instance.InitializeData();
         Save_Load.Instance.InitializeData();
         SceneManager.LoadScene(_sceneName);
     }

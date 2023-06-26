@@ -16,6 +16,7 @@ public class LoadData : MonoBehaviour
 
     private void Start()
     {
+        //TestSaveLoad.Instance.LoadData();
         Save_Load.Instance.LoadData();        
         QuestUiUpdate();
     }

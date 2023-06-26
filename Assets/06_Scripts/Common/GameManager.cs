@@ -7,9 +7,6 @@ public class GameManager : MonoBehaviour
     public int _gold;
     public int _Gold { get { return _gold; } set { _gold = value; } }
 
-    public bool _uiActive = false;
-    public bool _UiActive { get { return _uiActive; } set { _uiActive = value; } }
-
     public bool _isDungeon = false;
     public bool _IsDungeon { get { return _isDungeon; } set { _isDungeon = value; } }
 
@@ -44,7 +41,10 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if(_IsDungeon == false)
-            Save_Load.Instance.SaveData();        
+        if (_IsDungeon == false)
+        {
+            //TestSaveLoad.Instance.SaveData();
+            Save_Load.Instance.SaveData();
+        }
     }
 }
