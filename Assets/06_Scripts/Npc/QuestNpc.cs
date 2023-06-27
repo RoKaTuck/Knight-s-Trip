@@ -21,19 +21,37 @@ public class QuestNpc : NpcCtrl
     [SerializeField]
     private TextMeshProUGUI _questSideCondition;
     [SerializeField]
+    private GameObject _cemetryTeleport;
+    [SerializeField]
+    private GameObject _bossTeleport;
+    [SerializeField]
     private GameObject _consentRefuseBtn;
     [SerializeField]
     private GameObject _clearBtn;
+    [SerializeField]
+    private GameObject _clearDesc;
 
     private int _currentQuestIdx = 0;  
 
     public void OnClickClearBtn()
     {
-        if (QuestManager.Instance._quests[_quest[_currentQuestIdx]._questID]._questConditionCurCount >= QuestManager.Instance._quests[_quest[_currentQuestIdx]._questID]._questConditionMax)
+        if (QuestManager.Instance._quests.Find(id => id._questID == _quest[_currentQuestIdx]._questID)._questConditionCurCount >=
+            QuestManager.Instance._quests.Find(id => id._questID == _quest[_currentQuestIdx]._questID)._questConditionMax)
         {
             QuestManager.Instance.OutQuestPanel(_quest[_currentQuestIdx]._questID);
             QuestManager.Instance.ClearSideQuestText();
             QuestManager.Instance.CompleteQuest(_quest[_currentQuestIdx]);
+
+            if (_quest[_currentQuestIdx]._questID == 0)
+            {
+                _cemetryTeleport.SetActive(false);                
+            }
+            else if (_quest[_currentQuestIdx]._questID == 1)
+            {
+                _cemetryTeleport.SetActive(true);
+                _bossTeleport.SetActive(true);
+            }    
+
             _quest.RemoveAt(0);    
             _clearBtn.SetActive(false);
             _consentRefuseBtn.SetActive(true);

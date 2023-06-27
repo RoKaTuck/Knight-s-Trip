@@ -16,8 +16,10 @@ public class DungeonLoadData : MonoBehaviour
 
     private void Start()
     {
+        Save_Load.Instance.LoadPlayerStatData();
         Save_Load.Instance.LoadInventoryData();
-        Save_Load.Instance.LoadEquipData();        
+        Save_Load.Instance.LoadEquipData();
+        Save_Load.Instance.LoadQuestData();
 
         QuestUiUpdate();        
     }

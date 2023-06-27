@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skeletonName: "\uD574\uACE8 \uC804\uC0AC"
   _hp: 80
-  _dmg: 20
+  _dmg: 50
   _def: 10
   _speed: 2
+  _exp: 100

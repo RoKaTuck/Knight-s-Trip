@@ -14,6 +14,8 @@ public class MonsterCtrl : FSM<MonsterCtrl>, IMonsterBase
     public int _def;
     [SerializeField]
     public float _speed;
+    [SerializeField]
+    public int _exp;
 
     public bool _patrolStart = false;
     protected SkeletonAnim _skeletonAnim;

@@ -14,6 +14,8 @@ public class PlayerData
     public int _playerGold;
     public int _playerHp;
     public int _playerMp;
+    public int _playerLevel;
+    public int _playerExp;
 
     // 플레이어 인벤토리
     public List<int> _invenitemIdx = new List<int>();

@@ -19,10 +19,7 @@ public class ReinforceSlot : MonoBehaviour, IDropHandler
     {
         if(_item != null)
         {
-            _item._reinforceLevel += 1;
-            _item._dmg += (int)(_item._dmg * _item._reinforceLevel * 0.5);
-
-            Debug.Log("강화 레벨 : " + _item._reinforceLevel + " 데미지 : " + _item._dmg);
+            
         }
     }
 

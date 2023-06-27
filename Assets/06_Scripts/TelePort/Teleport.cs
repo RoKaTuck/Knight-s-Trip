@@ -49,7 +49,7 @@ public class Teleport : MonoBehaviour
 
     // 필요한 컴포넌트
     [SerializeField]
-    UiManager _uiManager;
+    EntranceDungeonUi _uiManager;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -73,12 +73,13 @@ public class Teleport : MonoBehaviour
     {
         BaseTeleport baseTeleport;
 
-        UiManager._isUiActivated = false;
+        EntranceDungeonUi._isUiActivated = false;
 
         switch(_teleportType)
         {
             case eTeleportType.Town:                
                 baseTeleport = new TownTeleport();
+                Save_Load.Instance.SavePlayerStatData();
                 Save_Load.Instance.SaveInventoryData();
                 Save_Load.Instance.SaveQuestData();                
                 GameManager.Instance._IsDungeon = false;

@@ -34,13 +34,18 @@ public class PlayerAnimCtrl : MonoBehaviour
         _animator.SetFloat("AttackSpeed", attackSpeed);
     }
 
-    public void WarriorChargingAnim()
+    public void JumpAnim(bool jump)
     {
-
+        _animator.SetBool("Jump", jump);
     }
 
     public void DeathAnim()
     {
+        _animator.SetTrigger("Death");
+    }
 
+    public void RollAnim()
+    {
+        _animator.SetTrigger("Roll");
     }
 }

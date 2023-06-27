@@ -7,8 +7,10 @@ public class PlayerMoveCtrl : MonoBehaviour
     [SerializeField, Header("Player Attriubte")]
     private float _playerSpeed = 5f;
     [SerializeField]
-    private float _playerRunSpeed;
-    private float _applySpeed;    
+    private float _playerRunSpeed;    
+    private float _applySpeed;
+    [SerializeField]
+    private float _rollSpeed;
 
     [SerializeField]
     private float _jumpForce;
@@ -34,7 +36,7 @@ public class PlayerMoveCtrl : MonoBehaviour
     private StatusCtrl _statusCtrl;
 
     public bool _isMove = true;
-    public bool _Move { set { _isMove = value; } }
+    public bool _Move { get { return _isMove; } set { _isMove = value; } }
 
     private void Start()
     {
@@ -46,63 +48,32 @@ public class PlayerMoveCtrl : MonoBehaviour
         _animCtrl   = GetComponent<PlayerAnimCtrl>();
         _capsuleCollider = GetComponent<CapsuleCollider>();
         _statusCtrl = FindObjectOfType<StatusCtrl>();
-    }
-    
-    // Update is called once per frame
-    private void FixedUpdate()
-    {
-        if (_isMove == false)
-            return;
-
-        if (UiManager._isUiActivated == false && NpcCtrl._isInteracting == false)
-            RigidMove();
-        else
-        {
-            _animCtrl.MoveAnim(0, 0);
-            //_animCtrl.SprintAnim(false);
-        }
-
-        if (Input.GetKey(KeyCode.LeftAlt))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-
-            return;
-        }
-
-        if (Inventory._inventoryActivated == false && NpcCtrl._isInteracting == false)
-        {
-            CameraRotation();
-            CharacterRotation();
-        }
-    }
-
-    private void Update()
-    {
-        if (UiManager._isUiActivated == false)
-        {
-            IsGround();
-            TryJump();
-            TryRun();
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftAlt))
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
+    }       
 
     #region Rigid(O) Move
 
-    private void IsGround()
+    public void MoveState(int x, int z)
+    {
+        _animCtrl.MoveAnim(x, z);
+    }
+
+    public void IsGround()
     {
         Vector3 myTr = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         _isGround = Physics.Raycast(myTr, Vector3.down, _capsuleCollider.bounds.extents.y + 0.1f);
         Debug.DrawRay(transform.position, Vector3.down * (_capsuleCollider.bounds.extents.y + 0.1f), Color.red);
+
+        if (_isGround == false)
+            _animCtrl.JumpAnim(_isGround);
     }
 
-    private void TryJump()
+    public void TryRoll()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl) && _Move == true)
+            Roll();
+    }
+
+    public void TryJump()
     {
         if(Input.GetKeyDown(KeyCode.Space) && _isGround == true)
             Jump();
@@ -111,9 +82,16 @@ public class PlayerMoveCtrl : MonoBehaviour
     private void Jump()
     {
         _rigid.velocity = transform.up * _jumpForce;
+        _animCtrl.JumpAnim(_isGround);
     }
 
-    private void TryRun()
+    private void Roll()
+    {
+        _applySpeed = _rollSpeed;
+        _animCtrl.RollAnim();
+    }
+
+    public void TryRun()
     {
         if(Input.GetKey(KeyCode.LeftShift) && _statusCtrl._Sp > 0)
             Running();
@@ -132,7 +110,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         _applySpeed = _playerSpeed;        
     }
 
-    private void CharacterRotation()
+    public void CharacterRotation()
     {
         // 좌우 캐릭터 회전
         float rotationY            = Input.GetAxisRaw("Mouse X");
@@ -141,7 +119,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         _rigid.MoveRotation(_rigid.rotation * Quaternion.Euler(characterRotationY));
     }
 
-    private void RigidMove()
+    public void RigidMove()
     {
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputZ = Input.GetAxisRaw("Vertical");
@@ -162,7 +140,7 @@ public class PlayerMoveCtrl : MonoBehaviour
         _animCtrl.MoveAnim(inputX, inputZ);  
     }
 
-    private void CameraRotation()
+    public void CameraRotation()
     {
         // 상하 카메라 회전
         float rotationX       = Input.GetAxisRaw("Mouse Y");
@@ -174,5 +152,9 @@ public class PlayerMoveCtrl : MonoBehaviour
         _theCamera.transform.localEulerAngles = new Vector3(_currentCameraRotationX, 0f, 0f);
     }
     #endregion
-    
+
+    public void Death()
+    {
+        _animCtrl.DeathAnim();
+    }
 }

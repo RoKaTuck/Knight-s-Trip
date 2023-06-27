@@ -20,6 +20,7 @@ public class WeaponPanel : MonoBehaviour
     private void Awake()
     {
         _weaponSlots = _slotParent.GetComponentsInChildren<WeaponSlot>();
+        Save_Load.Instance.LoadEquipData();
     }
 
     public void LoadToEquip(int itemId)

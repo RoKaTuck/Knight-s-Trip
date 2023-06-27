@@ -2970,6 +2970,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.53439206
+        functionName: OnDamageToPlayer
+        data: 
+        objectReferenceParameter: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -3001,6 +3008,13 @@ ModelImporter:
       events:
       - time: 0.9285717
         functionName: OnAttackEnd
+        data: 
+        objectReferenceParameter: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.47089958
+        functionName: OnDamageToPlayer
         data: 
         objectReferenceParameter: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
         floatParameter: 0
@@ -3042,6 +3056,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.35978794
+        functionName: OnDamageToPlayer
+        data: 
+        objectReferenceParameter: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -3073,6 +3094,13 @@ ModelImporter:
       events:
       - time: 0.8928576
         functionName: OnAttackEnd
+        data: 
+        objectReferenceParameter: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5396831
+        functionName: OnDamageToPlayer
         data: 
         objectReferenceParameter: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
         floatParameter: 0

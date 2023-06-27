@@ -10,6 +10,7 @@ public class SkeletonData : ScriptableObject
     public int _dmg;
     public int _def;
     public float _speed;
+    public int _exp;
 
     public enum eSkeletonType
     {

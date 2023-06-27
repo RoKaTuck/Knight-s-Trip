@@ -50,6 +50,7 @@ public class BossBear : MonsterCtrl
         _dmg = _bossBearData._dmg;
         _def = _bossBearData._def;
         _speed = _bossBearData._speed;
+        _exp = _bossBearData._exp;
         _navAgent.speed = _speed;        
     }    
 
@@ -60,6 +61,8 @@ public class BossBear : MonsterCtrl
         yield return new WaitForSeconds(delay);
 
         DungeonManager.Instance.DungeonClear = true;
+        QuestManager.Instance.InceaseQuestCondition(DungeonManager.Instance._questId, 1);
+        GameManager.Instance.IncreaseExp(_exp);
         DropItem();
 
         Destroy(gameObject);
@@ -164,10 +167,13 @@ public class BossBear : MonsterCtrl
                 _bossBearAnim.ChaseAnim(_canMove);
             }
 
-            if ((_targetPos.position - transform.position).sqrMagnitude <= Mathf.Pow(_validAttackDist, 2))
+            if (_targetPos != null)
             {
-                _isAttack = true;
-                ChangeState(FSM_AttackState._Inst);
+                if ((_targetPos.position - transform.position).sqrMagnitude <= Mathf.Pow(_validAttackDist, 2))
+                {
+                    _isAttack = true;
+                    ChangeState(FSM_AttackState._Inst);
+                }
             }
         }        
     }
@@ -209,7 +215,14 @@ public class BossBear : MonsterCtrl
             if (players[i] != null)
             {
                 StatusCtrl hp = FindObjectOfType<StatusCtrl>();
-                hp.DecreaseHp(_dmg);
+                PlayerCtrl player = players[i].GetComponent<PlayerCtrl>();
+
+                hp.DecreaseHp(_dmg - player._Def);
+
+                if (hp.GetCurrentHp() <= 0)
+                {
+                    player.Death();                    
+                }
             }
         }
     }

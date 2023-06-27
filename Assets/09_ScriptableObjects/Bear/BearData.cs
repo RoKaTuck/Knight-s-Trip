@@ -11,6 +11,7 @@ public class BearData : ScriptableObject
     public int _dmg;
     public int _def;
     public int _speed;
+    public int _exp;
 
     public enum eBearType
     {

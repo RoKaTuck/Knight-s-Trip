@@ -2325,6 +2325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentWeaponType: SWORD
+  _weaponPanel: {fileID: 0}
   _changeWeaponDelayTime: 0.1
   _changeWeaponEndDelayTime: 0.1
   _swords:
@@ -2557,12 +2558,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8597025534238398716}
   - component: {fileID: 8936572676152902210}
+  - component: {fileID: 1178603153174853681}
   - component: {fileID: 8936572676152902211}
   - component: {fileID: 8936572676152902208}
   - component: {fileID: 8936572676152902209}
   - component: {fileID: 8936572676152902212}
   - component: {fileID: 8936572676152902213}
   - component: {fileID: 533582049}
+  - component: {fileID: 764910707620768050}
   m_Layer: 6
   m_Name: Paladin
   m_TagString: Player
@@ -2610,6 +2613,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1178603153174853681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936572676152902214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3833ac768650642aea05000a1a2321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _atk: 60
+  _def: 20
+  _moveCtrl: {fileID: 8936572676152902211}
+  _attackCtrl: {fileID: 8936572676152902208}
+  _deathUi: {fileID: 0}
 --- !u!114 &8936572676152902211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,8 +2644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerSpeed: 3
   _playerRunSpeed: 10
-  _playerRotateSpeed: 12
-  _jumpForce: 6
+  _jumpForce: 4.5
   _isGround: 1
   _cameraRotationLimit: 45
   _lookSensitivity: 4
@@ -2702,6 +2721,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questBase: {fileID: 0}
+--- !u!114 &764910707620768050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936572676152902214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75762bb3f8966a479a8bae2e1963dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelTxt: {fileID: 0}
+  _statusCtrl: {fileID: 0}
 --- !u!1 &9102780496494825171
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,10 +14,14 @@ public class LoadData : MonoBehaviour
     [SerializeField]
     private GameObject _questPrefab;    
 
-    private void Start()
+    private void Awake()
     {
+        GameManager.Instance._InGame = true;
         //TestSaveLoad.Instance.LoadData();
-        Save_Load.Instance.LoadData();        
+        Save_Load.Instance.LoadPlayerData();        
+        Save_Load.Instance.LoadQuestData();
+        Save_Load.Instance.LoadTownQuestData();
+
         QuestUiUpdate();
     }
     

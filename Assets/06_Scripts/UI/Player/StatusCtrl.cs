@@ -43,13 +43,19 @@ public class StatusCtrl : MonoBehaviour
     [SerializeField]
     private Slider[] _imagesGauge;
 
-    private const int HP = 0, MP =1, SP = 2;
+    private const int HP = 0, MP =1, SP = 2, EXP = 3;
 
     private void Start()
     {
         _currentHp = _hp;
         _currentMp = _mp;        
         _currentSp = _sp;
+        UpdateExp();
+    }
+    
+    public void UpdateExp()
+    {
+        _imagesGauge[EXP].value = (float)GameManager.Instance._Exp / GameManager.Instance._MaxExp;
     }
 
     public void IncreaseHp(int count)

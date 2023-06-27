@@ -32,6 +32,9 @@ public class FSM_PatrolState : FSMSingleton<FSM_PatrolState>, IFSMState<MonsterC
         yield return new WaitForSeconds(3f);
         e._patrolStart = true;
 
+        if(e.gameObject.GetComponent<CapsuleCollider>() != null)
+            e.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+
         e.PatrolStart();
         yield break;
     }

@@ -34,7 +34,8 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        _slots = _slotsParent.GetComponentsInChildren<Slot>();        
+        _slots = _slotsParent.GetComponentsInChildren<Slot>();
+        Save_Load.Instance.LoadInventoryData();
     }
 
     // Update is called once per frame

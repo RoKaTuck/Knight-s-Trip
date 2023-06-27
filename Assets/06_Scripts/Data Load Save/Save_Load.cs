@@ -16,8 +16,9 @@ public class Save_Load : MonoBehaviour
     private string SAVE_QUESTNAME = "QuestSave.txt";
     private string SAVE_EQUIPNAME = "EquipFile.txt";
     private string SAVE_TOWNQUESTNAME = "TownQuest.txt";
+    private string SAVE_TOWNQUESORIGINAL = "TownQuest_Original.txt";
 
-    private PlayerMoveCtrl _moveCtrl;
+    private PlayerCtrl _playerCtrl;
     private StatusCtrl _statusCtrl;
     private Inventory _inven;
     private WeaponPanel _weaponPanel;
@@ -61,6 +62,7 @@ public class Save_Load : MonoBehaviour
 
     public void InitializeData()
     {
+        // 플레이어 데이터
         _playerData._playerPos = Vector3.zero;
         _playerData._playerRot = Vector3.zero;
         _playerData._playerGold = 10000;
@@ -69,11 +71,15 @@ public class Save_Load : MonoBehaviour
         _playerData._playerMp = 100;
         //_playerData._playerSp = 1000;
 
+        _playerData._playerLevel = 1;
+        _playerData._playerExp = 0;
+
         _playerData._invenArrayNumber.Clear();
         _playerData._invenItemName.Clear();
         _playerData._invenItemNumber.Clear();
         _playerData._questDataList.Clear();
 
+        // 퀘스트 데이터
         _questData._isCompleted = false;
         _questData._questConditionCurCount = 0;
         _questData._questConditionMax = 0;
@@ -83,11 +89,20 @@ public class Save_Load : MonoBehaviour
         _questData._questName = string.Empty;
         _questData._questReward = 0;
 
+        // 장비창 데이터
+        _equipData._equipItemIdx.Clear();
+        // NPC 퀘스트 데이터
+        LoadTownQuestOriginalData();
+
         string json = JsonUtility.ToJson(_playerData, true);
         string jsonQuest = JsonUtility.ToJson(_questData, true);
+        string jsonEquip = JsonUtility.ToJson(_equipData, true);
+        string jsonTown = JsonUtility.ToJson(_townQuestData, true);
 
         File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, json); // 경로 + 파일 이름
         File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME, jsonQuest); // 경로 + 파일 이름
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME, jsonEquip); // 경로 + 파일 이름
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_TOWNQUESTNAME, jsonTown); // 경로 + 파일 이름
 
         Debug.Log("초기화 완료");
     }
@@ -95,6 +110,7 @@ public class Save_Load : MonoBehaviour
     public void SaveData()
     {
         SavePlayerData();
+        SavePlayerStatData();
         SaveInventoryData();
         SaveQuestData();
         SaveWeaponPanelData();
@@ -107,9 +123,11 @@ public class Save_Load : MonoBehaviour
     {
         if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_FILENAME))
         {
-            string loadJsonPlayer = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME);
-            _playerData = JsonUtility.FromJson<PlayerData>(loadJsonPlayer);
+            //string loadJsonPlayer = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME);
+            //_playerData = JsonUtility.FromJson<PlayerData>(loadJsonPlayer);
+
             LoadPlayerData();
+            LoadPlayerStatData();
             LoadInventoryData();
 
             Debug.Log("플레이어 데이터 로드 완료");
@@ -119,8 +137,8 @@ public class Save_Load : MonoBehaviour
 
         if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME))
         {
-            string loadJsonQuest = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME);
-            _questData = JsonUtility.FromJson<QuestData>(loadJsonQuest);
+            //string loadJsonQuest = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME);
+            //_questData = JsonUtility.FromJson<QuestData>(loadJsonQuest);
 
             LoadQuestData();
 
@@ -131,8 +149,8 @@ public class Save_Load : MonoBehaviour
 
         if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME))
         {
-            string loadJsonEquip = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME);
-            _equipData = JsonUtility.FromJson<EquipData>(loadJsonEquip);
+            //string loadJsonEquip = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME);
+            //_equipData = JsonUtility.FromJson<EquipData>(loadJsonEquip);
 
             LoadEquipData();
 
@@ -153,14 +171,24 @@ public class Save_Load : MonoBehaviour
 
     public void SavePlayerData()
     {
-        _moveCtrl = FindObjectOfType<PlayerMoveCtrl>();
+        _playerCtrl = FindObjectOfType<PlayerCtrl>();
         _statusCtrl = FindObjectOfType<StatusCtrl>();
 
-        _playerData._playerPos = _moveCtrl.gameObject.transform.position;
-        _playerData._playerRot = _moveCtrl.gameObject.transform.eulerAngles;
+        _playerData._playerPos = _playerCtrl.gameObject.transform.position;
+        _playerData._playerRot = _playerCtrl.gameObject.transform.eulerAngles;        
 
+        string jsonPlayer = JsonUtility.ToJson(_playerData, true);
+
+        File.WriteAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME, jsonPlayer); // 경로 + 파일 이름
+    }
+
+    public void SavePlayerStatData()
+    {
         _playerData._playerHp = _statusCtrl._Hp;
         _playerData._playerMp = _statusCtrl._Mp;
+
+        _playerData._playerLevel = GameManager.Instance._Level;
+        _playerData._playerExp = GameManager.Instance._Exp;
 
         string jsonPlayer = JsonUtility.ToJson(_playerData, true);
 
@@ -247,11 +275,23 @@ public class Save_Load : MonoBehaviour
 
     public void LoadPlayerData()
     {
-        _moveCtrl = FindObjectOfType<PlayerMoveCtrl>();
+        string loadJsonPlayer = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME);
+        _playerData = JsonUtility.FromJson<PlayerData>(loadJsonPlayer);
+
+        _playerCtrl = FindObjectOfType<PlayerCtrl>();
         _statusCtrl = FindObjectOfType<StatusCtrl>();
 
-        _moveCtrl.gameObject.transform.position = _playerData._playerPos;
-        _moveCtrl.gameObject.transform.eulerAngles = _playerData._playerRot;
+        _playerCtrl.gameObject.transform.position = _playerData._playerPos;
+        _playerCtrl.gameObject.transform.eulerAngles = _playerData._playerRot;        
+    }
+
+    public void LoadPlayerStatData()
+    {
+        string loadJsonPlayer = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME);
+        _playerData = JsonUtility.FromJson<PlayerData>(loadJsonPlayer);
+
+        GameManager.Instance._Level = _playerData._playerLevel;
+        GameManager.Instance._Exp = _playerData._playerExp;
 
         _statusCtrl._Hp = _playerData._playerHp;
         _statusCtrl._Mp = _playerData._playerMp;
@@ -259,6 +299,9 @@ public class Save_Load : MonoBehaviour
 
     public void LoadInventoryData()
     {
+        string loadJsonPlayer = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_FILENAME);
+        _playerData = JsonUtility.FromJson<PlayerData>(loadJsonPlayer);
+
         _inven = FindObjectOfType<Inventory>();
 
         GameManager.Instance._Gold = _playerData._playerGold;
@@ -272,6 +315,9 @@ public class Save_Load : MonoBehaviour
 
     public void LoadEquipData()
     {
+        string loadJsonEquip = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_EQUIPNAME);
+        _equipData = JsonUtility.FromJson<EquipData>(loadJsonEquip);
+
         _weaponPanel = FindObjectOfType<WeaponPanel>();
 
         for (int i = 0; i < _equipData._equipItemIdx.Count; i++)
@@ -282,6 +328,9 @@ public class Save_Load : MonoBehaviour
 
     public void LoadQuestData()
     {
+        string loadJsonQuest = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_QUESTNAME);
+        _questData = JsonUtility.FromJson<QuestData>(loadJsonQuest);
+
         QuestManager.Instance._quests.Clear();
 
         foreach (QuestData questData in _playerData._questDataList)
@@ -303,5 +352,11 @@ public class Save_Load : MonoBehaviour
         QuestNpc questNpc = FindObjectOfType<QuestNpc>();
 
         questNpc._quest = _townQuestData._npcQuestData;
+    }
+    
+    public void LoadTownQuestOriginalData()
+    {
+        string loadJsonTownQuest = File.ReadAllText(SAVE_DATA_DIRECTORY + SAVE_TOWNQUESORIGINAL);
+        _townQuestData = JsonUtility.FromJson<TownQuestData>(loadJsonTownQuest);        
     }
 }

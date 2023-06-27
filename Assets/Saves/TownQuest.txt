@@ -1,14 +1,3 @@
 {
-    "_npcQuestData": [
-        {
-            "_questID": 1,
-            "_questName": "재앙을 막아라!",
-            "_questDescription": "마을 근처로 위험한 몬스터가 오고있다네.\n마을을위해 가서 처리해주게!",
-            "_questReward": 10000,
-            "_questConditionString": "보스 몬스터 처치",
-            "_questConditionCurCount": 0,
-            "_questConditionMax": 1,
-            "_IsCompleted": false
-        }
-    ]
+    "_npcQuestData": []
 }

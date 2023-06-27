@@ -15,6 +15,8 @@ public class PlayerAttackCtrl : MonoBehaviour
     [HideInInspector]
     public WeaponAttack _weaponAttack;
 
+    private PlayerCtrl _playerCtrl;
+
     public enum eAttackType
     {
         Sword,
@@ -26,13 +28,19 @@ public class PlayerAttackCtrl : MonoBehaviour
     private void Start()
     {
         _weaponAttack = new WeaponSword();
+        _playerCtrl = GetComponent<PlayerCtrl>();
     }
 
-    void Update()
+    //void Update()
+    //{
+    //    if (Inventory._inventoryActivated == false && UiManager._isUiActivated == false && NpcCtrl._isInteracting == false)
+    //        Attack();
+    //}   
+
+    public void Attack()
     {
-        if(Inventory._inventoryActivated == false && UiManager._isUiActivated == false && NpcCtrl._isInteracting == false)
-            _swordCtrl.WeaponAttack(_weaponAttack);
-    }   
+        _swordCtrl.WeaponAttack(_weaponAttack);
+    }
 
     public void OnAttackEnd()
     {
@@ -50,9 +58,14 @@ public class PlayerAttackCtrl : MonoBehaviour
                 break;
 
             MonsterCtrl monster = monsters[i].GetComponent<MonsterCtrl>();
-            monster._hp -= 100 - monster._def;
+            monster._hp -= _playerCtrl._Atk - monster._def;
 
             Debug.Log($"¿Ã∏ß : {monster._name} ««∞›!");
+
+            if (monster._hp <= 0)
+            {
+                Debug.Log($"∞Ê«Ëƒ° : {monster._exp} »πµÊ");
+            }
         }
     }
 

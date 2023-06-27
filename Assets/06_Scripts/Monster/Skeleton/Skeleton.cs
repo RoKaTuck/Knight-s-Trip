@@ -19,6 +19,8 @@ public class Skeleton : MonsterCtrl
 
     [SerializeField, Header("인식 필요요소")]
     private SphereCollider _detectForWakeUp;
+    [SerializeField]
+    private SphereCollider _attackArea;
 
     // 공격 인정거리
     [SerializeField]
@@ -43,6 +45,7 @@ public class Skeleton : MonsterCtrl
         _monsterDetect = GetComponent<MonsterDetect>();              
 
         _navAgent.enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
 
         InitState(this, FSM_IdleState._Inst);
     }
@@ -55,6 +58,7 @@ public class Skeleton : MonsterCtrl
         _dmg   = _skeletonData._dmg;
         _def   = _skeletonData._def;
         _speed = _skeletonData._speed;
+        _exp   = _skeletonData._exp;
 
         _navAgent.speed = _speed;        
         _originPos = transform.position;
@@ -72,6 +76,9 @@ public class Skeleton : MonsterCtrl
         if (DungeonManager.Instance.MonsterCount <= 0)
             DungeonManager.Instance.DungeonClear = true;
 
+        EXP playerExp = _targetPos.gameObject.GetComponent<PlayerExp>();
+        playerExp.IncreaseExp(_exp);
+
         gameObject.DestroyAPS();
 
         yield break;
@@ -81,9 +88,6 @@ public class Skeleton : MonsterCtrl
     {
         _isAttack = false;        
         _skeletonAnim.AttackAnim(0);
-        //_navAgent.enabled = false;
-        //transform.LookAt(_targetPos);
-        //_navAgent.enabled = true;
     }
 
     public override void Death()
@@ -182,7 +186,7 @@ public class Skeleton : MonsterCtrl
         if(_monsterDetect.DetectForWakeUp(transform.position, _detectForWakeUp.radius) == true)
         {            
             _skeletonAnim.IdleAnim();
-            _navAgent.enabled = true;
+            _navAgent.enabled = true;                     
             ChangeState(FSM_PatrolState._Inst);
         }        
     }
@@ -190,5 +194,31 @@ public class Skeleton : MonsterCtrl
     public override void PatrolStart()
     {
         _monsterPatrol.PatrolStart(_navAgent);
+    }
+
+    private void OnDamageToPlayer()
+    {
+        Collider[] players = new Collider[3];
+        Physics.OverlapSphereNonAlloc(_attackArea.transform.position,
+                                      _attackArea.radius, players, 1 << 6);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] == null)
+                break;
+
+            if (players[i] != null)
+            {
+                StatusCtrl hp = FindObjectOfType<StatusCtrl>();
+                PlayerCtrl player = players[i].GetComponent<PlayerCtrl>();
+
+                hp.DecreaseHp(_dmg - player._Def);
+
+                if(hp.GetCurrentHp() <= 0)
+                {
+                    player.Death();
+                }
+            }
+        }
     }
 }
