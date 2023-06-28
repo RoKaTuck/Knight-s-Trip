@@ -4571,7 +4571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29035cc64dce6a1418eee472a3087471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warriorSkeletonPrefab: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
   _spawnCount: 0
 --- !u!4 &187364876
 Transform:
@@ -35310,6 +35309,9 @@ MonoBehaviour:
   - name: SkeletonWarrior
     _prefObj: {fileID: 4168236887043469761, guid: 6e3f218b742294893ad834f61c027945, type: 3}
     _amount: 10
+  - name: HitParticleRed
+    _prefObj: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 3}
+    _amount: 20
   _defPoolAmount: 10
   _canPoolExpand: 1
 --- !u!4 &1313511723
@@ -50690,10 +50692,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _townPortal: {fileID: 1194054200658629}
-  _bossPotalEntrance: {fileID: 0}
+  _sideQuestCondition: {fileID: 1170752709}
   _questId: 0
   _mosnterCount: 0
-  _canSpawnBoss: 0
   _dungeonClear: 0
 --- !u!4 &1862958754
 Transform:
@@ -59665,10 +59666,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 533582049, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
-      propertyPath: _questBase
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 764910707620768050, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
       propertyPath: _levelTxt
       value: 
@@ -59681,6 +59678,10 @@ PrefabInstance:
       propertyPath: _deathUi
       value: 
       objectReference: {fileID: 735746245}
+    - target: {fileID: 1178603153174853681, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
+      propertyPath: _statusCtrl
+      value: 
+      objectReference: {fileID: 271281308}
     - target: {fileID: 8125756318538326052, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
       propertyPath: _weaponPanel
       value: 
@@ -59737,6 +59738,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8936572676152902211, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
+      propertyPath: _statusCtrl
+      value: 
+      objectReference: {fileID: 271281308}
     - target: {fileID: 8936572676152902214, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
       propertyPath: m_Name
       value: Paladin

@@ -48,4 +48,9 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         _animator.SetTrigger("Roll");
     }
+
+    public void Skill1()
+    {
+        _animator.SetTrigger("Skill1");
+    }
 }

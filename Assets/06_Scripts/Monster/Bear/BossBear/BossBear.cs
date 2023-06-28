@@ -22,9 +22,12 @@ public class BossBear : MonsterCtrl
     private SphereCollider _normalAttackArea;
 
     // 필요한 컴포넌트
+    [SerializeField]
+    private Transform _particlePos;
     private MonsterDetect _monsterDetect;
     private MonsterPatrol _monsterPatrol;
     private NavMeshAgent _navAgent;
+    private ObjectPoolingSystem _poolingSystem;
 
     private Vector3 _originPos;
     private Transform _targetPos;
@@ -38,6 +41,8 @@ public class BossBear : MonsterCtrl
         _bossBearAnim = GetComponent<BossBearAnim>();
         _monsterPatrol = GetComponent<MonsterPatrol>();
         _monsterDetect = GetComponent<MonsterDetect>();
+        _poolingSystem = ObjectPoolingSystem._instance;
+
         _originPos = transform.position;
 
         InitState(this, FSM_IdleState._Inst);
@@ -188,7 +193,17 @@ public class BossBear : MonsterCtrl
                 return;
             }
         }
-    }    
+    }
+
+    public override void Hit(int damage)
+    {
+        _hp -= damage - _def;
+        var hitEffect = _poolingSystem.InstantiateAPS("Particle_Hit", transform.position,
+                                                      transform.rotation, Vector3.one,
+                                                      transform.gameObject);
+        hitEffect.transform.localPosition = _particlePos.position;
+        hitEffect.transform.localEulerAngles = new Vector3(0, 180, 0);
+    }
 
     private void DropItem()
     {
@@ -214,15 +229,9 @@ public class BossBear : MonsterCtrl
 
             if (players[i] != null)
             {
-                StatusCtrl hp = FindObjectOfType<StatusCtrl>();
                 PlayerCtrl player = players[i].GetComponent<PlayerCtrl>();
 
-                hp.DecreaseHp(_dmg - player._Def);
-
-                if (hp.GetCurrentHp() <= 0)
-                {
-                    player.Death();                    
-                }
+                player.Hit(_dmg - player._Def);
             }
         }
     }

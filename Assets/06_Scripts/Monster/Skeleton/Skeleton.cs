@@ -36,13 +36,15 @@ public class Skeleton : MonsterCtrl
     private NavMeshAgent  _navAgent;    
     private MonsterDetect _monsterDetect;
     private MonsterPatrol _monsterPatrol;
+    private ObjectPoolingSystem _poolingSystem;
 
     private void Awake()
     {
         _navAgent      = GetComponent<NavMeshAgent>();
         _skeletonAnim  = GetComponent<SkeletonAnim>();
         _monsterPatrol = GetComponent<MonsterPatrol>();
-        _monsterDetect = GetComponent<MonsterDetect>();              
+        _monsterDetect = GetComponent<MonsterDetect>();
+        _poolingSystem = ObjectPoolingSystem._instance;
 
         _navAgent.enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
@@ -74,7 +76,10 @@ public class Skeleton : MonsterCtrl
         DungeonManager.Instance.MonsterCount -= 1;
 
         if (DungeonManager.Instance.MonsterCount <= 0)
+        {
             DungeonManager.Instance.DungeonClear = true;
+            DungeonManager.Instance.ActivePotal();
+        }
 
         EXP playerExp = _targetPos.gameObject.GetComponent<PlayerExp>();
         playerExp.IncreaseExp(_exp);
@@ -91,7 +96,8 @@ public class Skeleton : MonsterCtrl
     }
 
     public override void Death()
-    {
+    {        
+        GetComponent<CapsuleCollider>().enabled = false;
         StartCoroutine(CRT_DeathDelay(2.7f));
         // 아이템 뿌리는거 구현
     }
@@ -196,6 +202,16 @@ public class Skeleton : MonsterCtrl
         _monsterPatrol.PatrolStart(_navAgent);
     }
 
+    public override void Hit(int damage)
+    {
+        _hp -= damage - _def;
+        var hitEffect = _poolingSystem.InstantiateAPS("Particle_Hit", transform.position, 
+                                                      transform.rotation, Vector3.one, 
+                                                      transform.gameObject);
+        hitEffect.transform.localPosition = Vector3.up;
+        hitEffect.transform.localEulerAngles = new Vector3(0, 180, 0);
+    }
+
     private void OnDamageToPlayer()
     {
         Collider[] players = new Collider[3];
@@ -208,16 +224,10 @@ public class Skeleton : MonsterCtrl
                 break;
 
             if (players[i] != null)
-            {
-                StatusCtrl hp = FindObjectOfType<StatusCtrl>();
+            {                
                 PlayerCtrl player = players[i].GetComponent<PlayerCtrl>();
 
-                hp.DecreaseHp(_dmg - player._Def);
-
-                if(hp.GetCurrentHp() <= 0)
-                {
-                    player.Death();
-                }
+                player.Hit(_dmg - player._Def);                                
             }
         }
     }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttackCtrl : MonoBehaviour
-{    
+{
+    public int _skillDamage = 0;
+
     // 필요한 컴포넌트
     [SerializeField]
     private SwordCtrl _swordCtrl;
@@ -11,11 +13,9 @@ public class PlayerAttackCtrl : MonoBehaviour
     private PlayerMoveCtrl _moveCtrl;
     [SerializeField]
     private SphereCollider _norAttackArea;
-
-    [HideInInspector]
-    public WeaponAttack _weaponAttack;
-
     private PlayerCtrl _playerCtrl;
+    [HideInInspector]
+    public WeaponAttack _weaponAttack;     
 
     public enum eAttackType
     {
@@ -29,13 +29,7 @@ public class PlayerAttackCtrl : MonoBehaviour
     {
         _weaponAttack = new WeaponSword();
         _playerCtrl = GetComponent<PlayerCtrl>();
-    }
-
-    //void Update()
-    //{
-    //    if (Inventory._inventoryActivated == false && UiManager._isUiActivated == false && NpcCtrl._isInteracting == false)
-    //        Attack();
-    //}   
+    }    
 
     public void Attack()
     {
@@ -58,7 +52,7 @@ public class PlayerAttackCtrl : MonoBehaviour
                 break;
 
             MonsterCtrl monster = monsters[i].GetComponent<MonsterCtrl>();
-            monster._hp -= _playerCtrl._Atk - monster._def;
+            monster.Hit(_playerCtrl._Atk + _skillDamage);
 
             Debug.Log($"이름 : {monster._name} 피격!");
 
@@ -66,13 +60,8 @@ public class PlayerAttackCtrl : MonoBehaviour
             {
                 Debug.Log($"경험치 : {monster._exp} 획득");
             }
+
+            _skillDamage = 0;
         }
-    }
-
-    public void OnSwordEffect()
-    {
-        
-    }
-
-    
+    }        
 }

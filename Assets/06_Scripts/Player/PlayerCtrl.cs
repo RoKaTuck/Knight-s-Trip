@@ -19,6 +19,8 @@ public class PlayerCtrl : MonoBehaviour
     private PlayerAttackCtrl _attackCtrl;
     [SerializeField]
     private DeathUi _deathUi;
+    [SerializeField]
+    private StatusCtrl _statusCtrl;
 
     private void FixedUpdate()
     {
@@ -53,8 +55,7 @@ public class PlayerCtrl : MonoBehaviour
         {
             _moveCtrl.IsGround();
             _moveCtrl.TryJump();
-            _moveCtrl.TryRun();
-            _moveCtrl.TryRoll();
+            _moveCtrl.TryRun();            
         }
 
         if (Input.GetKeyUp(KeyCode.LeftAlt))
@@ -64,9 +65,21 @@ public class PlayerCtrl : MonoBehaviour
         }
 
         if (Inventory._inventoryActivated == false && EntranceDungeonUi._isUiActivated == false && NpcCtrl._isInteracting == false)
-            _attackCtrl.Attack();
+        {
+            _attackCtrl.Attack();            
+        }
     }
     
+    public void Hit(int count)
+    {
+        _statusCtrl.DecreaseHp(count);
+
+        if (_statusCtrl.GetCurrentHp() <= 0)
+        {
+            Death();
+        }
+    }
+
     public void OnDeath()
     {
         Cursor.visible = true;

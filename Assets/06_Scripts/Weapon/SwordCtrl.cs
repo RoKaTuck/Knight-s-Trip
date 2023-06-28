@@ -30,10 +30,7 @@ public class SwordCtrl : MonoBehaviour
 {
     //[SerializeField]
     public Sword _currentSword;
-    private float _currentSwordSpeed;
-
-    [SerializeField]
-    ParticleSystem _swordEffect;
+    private float _currentSwordSpeed;    
 
     // 필요한 컴포넌트
     [SerializeField]
@@ -52,7 +49,7 @@ public class SwordCtrl : MonoBehaviour
     {
         _currentSwordSpeed = WeaponSpeedCalc(_currentSword._swordSpeed);
         attackType.Attack(_animCtrl, _moveCtrl, _currentSwordSpeed);
-    }
+    }  
 
     public void SetWeaponType(WeaponAttack attackType)
     {

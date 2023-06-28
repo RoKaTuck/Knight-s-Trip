@@ -22,12 +22,7 @@ public class DungeonLoadData : MonoBehaviour
         Save_Load.Instance.LoadQuestData();
 
         QuestUiUpdate();        
-    }
-
-    private void Update()
-    {
-        QuestManager.Instance.UpdateQuestProgress(0, _sideQuestCondition);
-    }
+    }    
 
     private void QuestUiUpdate()
     {

@@ -35,4 +35,6 @@ public class MonsterCtrl : FSM<MonsterCtrl>, IMonsterBase
     public virtual void Idle(){}
 
     public virtual void PatrolStart() { }
+
+    public virtual void Hit(int damage){ }
 }

@@ -8,6 +8,8 @@ TagManager:
   - loweffect
   - effect
   - Npc
+  - FxTemporaire
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Item
   - Monster
   - Npc
-  - 
-  - 
+  - Invisible
+  - Weapon
   - 
   - 
   - 

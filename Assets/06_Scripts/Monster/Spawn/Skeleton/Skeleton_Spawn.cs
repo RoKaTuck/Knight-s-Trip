@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Skeleton_Spawn : SpawnManager
-{
-    [SerializeField]
-    private GameObject _warriorSkeletonPrefab;    
-    
+{    
     public int _spawnCount;
 
     private ObjectPoolingSystem _poolingSystem;
