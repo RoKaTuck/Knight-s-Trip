@@ -66,7 +66,9 @@ public class BossBear : MonsterCtrl
         yield return new WaitForSeconds(delay);
 
         DungeonManager.Instance.DungeonClear = true;
+        DungeonManager.Instance.ActivePotal();
         QuestManager.Instance.InceaseQuestCondition(DungeonManager.Instance._questId, 1);
+        DungeonManager.Instance.UpdateSideQuest();        
         GameManager.Instance.IncreaseExp(_exp);
         DropItem();
 
@@ -198,7 +200,7 @@ public class BossBear : MonsterCtrl
     public override void Hit(int damage)
     {
         _hp -= damage - _def;
-        var hitEffect = _poolingSystem.InstantiateAPS("Particle_Hit", transform.position,
+        var hitEffect = _poolingSystem.InstantiateAPS("Particle_HitBlue", transform.position,
                                                       transform.rotation, Vector3.one,
                                                       transform.gameObject);
         hitEffect.transform.localPosition = _particlePos.position;

@@ -128,7 +128,7 @@ public class ObjectPoolingSystem : MonoBehaviour
         newItem.SetActive(false);
 
         //	오브젝트 풀 매니져 오브젝트에 차일드 화.
-        newItem.transform.parent = transform;
+        newItem.transform.SetParent(transform);
 
         //	리스트에 추가.
         _pooledUnitsList[idx].Add(newItem);
@@ -189,7 +189,7 @@ public class ObjectPoolingSystem : MonoBehaviour
         if (tmpObj != null)
         {
             if (parent != null)
-                tmpObj.transform.parent = parent.transform;
+                tmpObj.transform.SetParent(parent.transform);
 
             tmpObj.transform.position = pos;
             tmpObj.transform.rotation = rot;

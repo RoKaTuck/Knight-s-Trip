@@ -29,7 +29,7 @@ public class SelectPage : MonoBehaviour
     //  기존 데이터가 존재하면 실행
     public void OnClickLoadGameBtn()    
     {        
-        if (File.Exists(Application.dataPath + "/Saves/" + "SaveFile.txt"))
+        if (File.Exists(Application.dataPath + "/Saves/" + "PlayerData.txt"))
             SceneManager.LoadScene(_sceneName);
         else
             Debug.Log("데이터가 존재하지 않습니다.");

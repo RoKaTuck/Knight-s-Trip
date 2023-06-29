@@ -21,6 +21,7 @@ public class LoadingSceneManager : MonoBehaviour
 
     private void Start()
     {
+        StopAllCoroutines();
         StartCoroutine(CRT_LoadAsynScene(_sceneName));
     }
 

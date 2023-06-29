@@ -74,6 +74,7 @@ public class Skeleton : MonsterCtrl
 
         QuestManager.Instance.InceaseQuestCondition(DungeonManager.Instance._questId, 1);
         DungeonManager.Instance.MonsterCount -= 1;
+        DungeonManager.Instance.UpdateSideQuest();
 
         if (DungeonManager.Instance.MonsterCount <= 0)
         {
@@ -81,7 +82,13 @@ public class Skeleton : MonsterCtrl
             DungeonManager.Instance.ActivePotal();
         }
 
-        EXP playerExp = _targetPos.gameObject.GetComponent<PlayerExp>();
+        EXP playerExp;
+
+        if (_targetPos != null)
+            playerExp = _targetPos.gameObject.GetComponent<PlayerExp>();
+        else
+            playerExp = FindObjectOfType<PlayerExp>();
+
         playerExp.IncreaseExp(_exp);
 
         gameObject.DestroyAPS();

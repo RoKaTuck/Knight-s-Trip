@@ -38,7 +38,7 @@ public class ActionCtrl : MonoBehaviour
 
             TryAction();
         }
-    }
+    }    
 
     private void TryAction()
     {

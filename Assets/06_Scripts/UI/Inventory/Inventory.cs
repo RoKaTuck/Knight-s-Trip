@@ -41,7 +41,8 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TryOpenInventory();
+        //if(GameManager.Instance._Pause == false)
+            TryOpenInventory();
         UpdateCurrentGold();        
     }    
 

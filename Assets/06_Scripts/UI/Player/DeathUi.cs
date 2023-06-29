@@ -47,21 +47,6 @@ public class DeathUi : MonoBehaviour
             yield return 0;
             _accumTime += Time.deltaTime;
         }
-        _cg.alpha = 1f;
-
-        //StartCoroutine(FadeOut()); //일정시간 켜졌다 꺼지도록 Fade out 코루틴 호출
-    }
-
-    private IEnumerator FadeOut()
-    {
-        yield return new WaitForSeconds(3.0f);
-        _accumTime = 0f;
-        while (_accumTime < _fadeTime)
-        {
-            _cg.alpha = Mathf.Lerp(1f, 0f, _accumTime / _fadeTime);
-            yield return 0;
-            _accumTime += Time.deltaTime;
-        }
-        _cg.alpha = 0f;
-    }
+        _cg.alpha = 1f;        
+    }   
 }

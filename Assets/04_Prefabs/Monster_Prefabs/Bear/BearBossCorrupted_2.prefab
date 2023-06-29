@@ -629,7 +629,7 @@ MonoBehaviour:
   - {fileID: 1021588353636906, guid: f75e1608d9f1e4f06a5027de3c813b5d, type: 3}
   _detectForWakeUp: {fileID: 1663152342}
   _normalAttackArea: {fileID: 2071339158}
-  _particlePos: {fileID: 0}
+  _particlePos: {fileID: 5254648023582517503}
 --- !u!114 &1643619890
 MonoBehaviour:
   m_ObjectHideFlags: 0

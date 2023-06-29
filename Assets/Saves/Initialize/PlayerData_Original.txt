@@ -1,0 +1,22 @@
+{
+    "_playerPos": {
+        "x": 1.7501368522644044,
+        "y": 0.3391590714454651,
+        "z": -30.608285903930665
+    },
+    "_playerRot": {
+        "x": 0.0,
+        "y": 169.3999481201172,
+        "z": 0.0
+    },
+    "_playerGold": 10000,
+    "_playerHp": 500,
+    "_playerMp": 100,
+    "_playerLevel": 1,
+    "_playerExp": 0,
+    "_invenitemIdx": [],
+    "_invenArrayNumber": [],
+    "_invenItemName": [],
+    "_invenItemNumber": [],
+    "_questDataList": []
+}

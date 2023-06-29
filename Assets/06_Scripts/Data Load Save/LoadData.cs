@@ -18,7 +18,8 @@ public class LoadData : MonoBehaviour
     {
         GameManager.Instance._InGame = true;
         //TestSaveLoad.Instance.LoadData();
-        Save_Load.Instance.LoadPlayerData();        
+        Save_Load.Instance.LoadPlayerData();
+        Save_Load.Instance.LoadPlayerStatData();
         Save_Load.Instance.LoadQuestData();
         Save_Load.Instance.LoadTownQuestData();
 

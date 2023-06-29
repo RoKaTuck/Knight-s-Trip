@@ -21,6 +21,8 @@ public class PlayerCtrl : MonoBehaviour
     private DeathUi _deathUi;
     [SerializeField]
     private StatusCtrl _statusCtrl;
+    [SerializeField]
+    private PlayerSkill _playerSkill;
 
     private void FixedUpdate()
     {
@@ -50,7 +52,7 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     private void Update()
-    {
+    {        
         if (EntranceDungeonUi._isUiActivated == false)
         {
             _moveCtrl.IsGround();
@@ -66,7 +68,9 @@ public class PlayerCtrl : MonoBehaviour
 
         if (Inventory._inventoryActivated == false && EntranceDungeonUi._isUiActivated == false && NpcCtrl._isInteracting == false)
         {
-            _attackCtrl.Attack();            
+            _attackCtrl.Attack();
+            _playerSkill.Skill1Active();
+            _playerSkill.Skill2Active();
         }
     }
     

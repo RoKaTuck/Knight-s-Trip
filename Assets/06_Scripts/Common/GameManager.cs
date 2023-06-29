@@ -10,15 +10,15 @@ public class GameManager : MonoBehaviour
     public int _gold;
     public bool _isDungeon = false;
     public bool _inGame = false;
-    public bool _playerDeath = false;
+    public bool _pause = false;
 
     public int _Level { get { return _level; } set { _level = value; } }
     public int _Exp { get { return _exp; } set { _exp = value; } }
     public int _MaxExp { get { return _maxExp; } set { _maxExp = value; } }
     public int _Gold { get { return _gold; } set { _gold = value; } }
     public bool _IsDungeon { get { return _isDungeon; } set { _isDungeon = value; } }
-    public bool _InGame { get { return _inGame; } set { _inGame = value; } }
-    public bool _PlayerDeath { get { return _playerDeath; } set { _playerDeath = value; } }
+    public bool _InGame { get { return _inGame; } set { _inGame = value; } } 
+    public bool _Pause { get { return _pause; } set { _pause = value; } }
 
     #region Singleton
     private static GameManager instance;

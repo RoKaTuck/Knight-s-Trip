@@ -13,7 +13,8 @@ public class PlayerQuest : MonoBehaviour
 
     private void Update()
     {
-        TryOpenQuest();
+        //if(GameManager.Instance._Pause == false)
+            TryOpenQuest();
     }
 
     private void TryOpenQuest()

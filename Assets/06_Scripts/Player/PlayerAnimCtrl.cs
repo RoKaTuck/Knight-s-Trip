@@ -53,4 +53,9 @@ public class PlayerAnimCtrl : MonoBehaviour
     {
         _animator.SetTrigger("Skill1");
     }
+
+    public void Skill2()
+    {
+        _animator.SetTrigger("Skill2");
+    }
 }

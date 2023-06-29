@@ -495,6 +495,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 6bb87a11c15512945baf00bb0e26e4bd, type: 3}
   m_PrefabInstance: {fileID: 780005136}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &24653750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1197066908, guid: 8327baaa6d4e872468fe4bf37589e649, type: 3}
+  m_PrefabInstance: {fileID: 1170752704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa52253ddd8c994c8356fb0c7f3c4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &24653751 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205207375, guid: 8327baaa6d4e872468fe4bf37589e649, type: 3}
+  m_PrefabInstance: {fileID: 1170752704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa52253ddd8c994c8356fb0c7f3c4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &25101202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e95d06e72435783469974a032eaf4492, type: 3}
@@ -30991,10 +31013,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 168332970, guid: 8327baaa6d4e872468fe4bf37589e649, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Load_CemetryPage
-      objectReference: {fileID: 0}
     - target: {fileID: 1291937422163563969, guid: 8327baaa6d4e872468fe4bf37589e649, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -35312,6 +35330,12 @@ MonoBehaviour:
   - name: HitParticleRed
     _prefObj: {fileID: 100002, guid: 3701b037060881f4ab28875f88041c69, type: 3}
     _amount: 20
+  - name: Skill1
+    _prefObj: {fileID: 1011157772751556, guid: ca63c6ac7458764498741e0306f78528, type: 3}
+    _amount: 5
+  - name: Skill2
+    _prefObj: {fileID: 1996079926692674, guid: fb101b1453aec9747a5ed7244075b1a2, type: 3}
+    _amount: 5
   _defPoolAmount: 10
   _canPoolExpand: 1
 --- !u!4 &1313511723
@@ -59682,6 +59706,14 @@ PrefabInstance:
       propertyPath: _statusCtrl
       value: 
       objectReference: {fileID: 271281308}
+    - target: {fileID: 2229278082422576342, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
+      propertyPath: _skills.Array.data[0]
+      value: 
+      objectReference: {fileID: 24653751}
+    - target: {fileID: 2229278082422576342, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
+      propertyPath: _skills.Array.data[1]
+      value: 
+      objectReference: {fileID: 24653750}
     - target: {fileID: 8125756318538326052, guid: 1d56bb8a3c6c44643aa85b06ea36feba, type: 3}
       propertyPath: _weaponPanel
       value: 
