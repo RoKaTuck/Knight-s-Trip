@@ -884,6 +884,7 @@ MonoBehaviour:
   _gold: 10000
   _isDungeon: 0
   _inGame: 0
+  _pause: 0
 --- !u!4 &380652742
 Transform:
   m_ObjectHideFlags: 0
@@ -1350,9 +1351,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 739638268}
-  - component: {fileID: 739638272}
-  - component: {fileID: 739638271}
-  - component: {fileID: 739638270}
   - component: {fileID: 739638273}
   m_Layer: 0
   m_Name: LoadManager
@@ -1376,42 +1374,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &739638270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739638266}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7200247af080878499cba73d9e277c92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &739638271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739638266}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11995f13eca35a8408ed604dcbdab070, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &739638272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739638266}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9132567ba0b7646b291e2692306c1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &739638273
 MonoBehaviour:
   m_ObjectHideFlags: 0

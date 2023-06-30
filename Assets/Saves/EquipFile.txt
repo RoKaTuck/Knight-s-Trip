@@ -1,3 +1,5 @@
 {
-    "_equipItemIdx": []
+    "_equipItemIdx": [
+        4001
+    ]
 }

@@ -35,8 +35,13 @@ public class PauseMenu : MonoBehaviour
     public void OnExitBtn()
     {
         Time.timeScale = 1;
-        Save_Load.Instance.SaveData();        
+        Save_Load.Instance.SaveData();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     public void OnDungeonExitBtn()

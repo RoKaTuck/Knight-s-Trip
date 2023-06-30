@@ -103,7 +103,8 @@ public class Skeleton : MonsterCtrl
     }
 
     public override void Death()
-    {        
+    {
+        _navAgent.enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
         StartCoroutine(CRT_DeathDelay(2.7f));
         // 아이템 뿌리는거 구현

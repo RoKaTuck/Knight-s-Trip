@@ -17,9 +17,8 @@ MonoBehaviour:
   _itemDesc: "\uB0A1\uC740 \uC2E0\uBC1C\uC774\uB2E4."
   _sellPrice: 490
   _buyPrice: 700
-  _reinforceLevel: 0
   _dmg: 0
   _itemType: 1
-  _itemImage: {fileID: 21300000, guid: b35fb527036525e43b238b3a5b035da9, type: 3}
+  _itemImage: {fileID: 21300000, guid: cd7b401a96a069e45a2313a33309ef26, type: 3}
   _itemPrefab: {fileID: 745946879031969996, guid: 2c2efac72959d8a40b711415fe8862f4, type: 3}
   _weaponType: SHOES

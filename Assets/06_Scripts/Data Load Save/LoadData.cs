@@ -17,6 +17,7 @@ public class LoadData : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance._InGame = true;
+        GameManager.Instance._IsDungeon = false;
         //TestSaveLoad.Instance.LoadData();
         Save_Load.Instance.LoadPlayerData();
         Save_Load.Instance.LoadPlayerStatData();
