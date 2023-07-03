@@ -57,6 +57,7 @@ MonoBehaviour:
     _part:
     - SP
     _num: 2c010000
+  _playerCtrl: {fileID: 0}
   _weaponManager: {fileID: 0}
   _statusCtrl: {fileID: 0}
   _slotToolTip: {fileID: 0}

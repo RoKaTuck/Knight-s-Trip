@@ -8,12 +8,27 @@ public class SelectPage : MonoBehaviour
     [SerializeField, Header("Select Page Attribute")]
     GameObject _selectPanel;
     [SerializeField]
-    GameObject _optionPanel;    
+    GameObject _optionPanel;
+    [SerializeField]
+    private GameObject _videoBase;
+    [SerializeField]
+    private GameObject _musicBase;
     [SerializeField]
     string _sceneName;
-    
+
+    // 필요한 컴포넌트
+    [SerializeField]
+    private VideoSetting _videoSetting;
+    [SerializeField]
+    private AudioSetting _audioSetting;
+
+    private bool _isVideoActive = false;
+    private bool _isMusicActive = false;    
+
     void Start()
     {
+        Save_Load.Instance.LoadOptionData();
+
         _selectPanel.SetActive(true);
         _optionPanel.SetActive(false);
     }
@@ -47,6 +62,36 @@ public class SelectPage : MonoBehaviour
         _selectPanel.SetActive(true);
         _optionPanel.SetActive(false);
     }
+
+    public void OnClickVideoBtn()
+    {
+        _isVideoActive = !_isVideoActive;
+
+        if (_isVideoActive)
+        {            
+            _videoBase.SetActive(true);
+        }
+        else
+        {
+            _videoSetting.VideoSetting_Save();
+            Save_Load.Instance.SaveOptionData();
+            _videoBase.SetActive(false);
+        }
+    }
+
+    public void OnClickMusicBtn()
+    {
+        _isMusicActive = !_isMusicActive;
+
+        if (_isMusicActive)
+            _musicBase.SetActive(true);
+        else
+        {
+            _audioSetting.AudioSetting_Save();
+            Save_Load.Instance.SaveOptionData();
+            _musicBase.SetActive(false);
+        }
+    }    
 
     //  계정 로그아웃 하고 게임종료
     public void OnClickExitBtn()    

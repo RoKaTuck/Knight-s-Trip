@@ -16,9 +16,7 @@ public class BlackSmith : NpcCtrl
 
     // 필요한 컴포넌트
     [SerializeField]
-    private GameObject _inventory;
-    [SerializeField]
-    private Button _ownInventoryCancelBtn;
+    private GameObject _inventory;    
 
     public void OnClickReinforceBtn()
     {

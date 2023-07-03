@@ -37,13 +37,9 @@ public class WeaponPanel : MonoBehaviour
         if (item._itemType == Item.eItemType.Weapon)
         {                        
             if (item._weaponType == "SWORD")
-            {                
                 _weaponSlots[WEAPONIDX].SetSlot(item);
-            }
             else if (item._weaponType == "LONGSWORD")
-            {                
                 _weaponSlots[WEAPONIDX].SetSlot(item);
-            }
 
             if (_itemList.Count > 0 &&_itemList.Find(e => e._itemType == item._itemType))
             {
@@ -56,21 +52,13 @@ public class WeaponPanel : MonoBehaviour
         else if (item._itemType == Item.eItemType.Armor)
         {
             if (item._weaponType == HELM)
-            {
                 _weaponSlots[HELMIDX].SetSlot(item);
-            }
             else if (item._weaponType == CHEST)
-            {
                 _weaponSlots[CHESTIDX].SetSlot(item);
-            }
             else if (item._weaponType == SHOES)
-            {
                 _weaponSlots[SHOESIDX].SetSlot(item);
-            }
             else if (item._weaponType == ACCESSORY)
-            {
                 _weaponSlots[ACCESSORYIDX].SetSlot(item);
-            }
 
             if (_itemList.Count > 0 && _itemList.Find(e => e._weaponType == item._weaponType))
             {

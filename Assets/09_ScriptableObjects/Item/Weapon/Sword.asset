@@ -17,7 +17,8 @@ MonoBehaviour:
   _itemDesc: "\uC77C\uBC18 \uC18C\uB4DC"
   _sellPrice: 770
   _buyPrice: 1100
-  _dmg: 0
+  _dmg: 30
+  _def: 0
   _itemType: 0
   _itemImage: {fileID: 21300000, guid: f3746a8f820026b4cb7711170ecfb67c, type: 3}
   _itemPrefab: {fileID: 745946879031969996, guid: b53ea96da606eba40951b282746b6e32, type: 3}

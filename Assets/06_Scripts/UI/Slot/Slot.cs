@@ -12,6 +12,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public int _itemCount; // 획득한 아이템 개수
     [SerializeField]
     private Image _itemImage; // 아이템의 이미지
+    public UpgradeItem _upgradeItem;   
 
     // 필요한 컴포넌트 
     [SerializeField]
@@ -28,7 +29,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     }
 
     // 아이템 획득
-    public void AddItem(Item item, int count = 1)
+    public void AddItem(Item item, int count = 1, UpgradeItem upgradeItem = null)
     {
         _item = item;        
         _itemCount = count;
@@ -40,10 +41,18 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             _textCount.text = count.ToString();
         }
         else if(item._itemType == Item.eItemType.Weapon || item._itemType == Item.eItemType.Armor)
-        {
+        {            
             _textCount.text = "0";
             _CountImage.SetActive(false);
         }
+
+        if(item._itemType == Item.eItemType.Weapon)
+            _upgradeItem = new WeaponItem(item._dmg, 0);
+        else if(item._itemType == Item.eItemType.Armor)
+            _upgradeItem = new ArmorItem(item._def, 0);
+
+        if (upgradeItem != null)
+            _upgradeItem = upgradeItem;
 
         SetColor(1);
     }
@@ -55,7 +64,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             if(_item != null && NpcCtrl._isInteracting == false)
             {                
                 // 소모
-                _itemEffectDatabase.UseItem(_item);     
+                _itemEffectDatabase.UseItem(_item, _upgradeItem);     
 
                 if(_item._itemType == Item.eItemType.Used)
                     SetSlotCount(-1);                
@@ -125,18 +134,19 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public void OnDrop(PointerEventData eventData)
     {
         if(DragSlot.instance._dragSlot != null)
-            ChageSlot();
+            ChangeSlot();
     }
 
-    private void ChageSlot() 
+    private void ChangeSlot() 
     {
-        Item _tempItem = _item;
-        int _tempItemCount = _itemCount;
+        Item tempItem = _item;
+        int tempItemCount = _itemCount;
+        UpgradeItem tempUpgradeItem = _upgradeItem;
 
         AddItem(DragSlot.instance._dragSlot._item, DragSlot.instance._dragSlot._itemCount);
 
-        if(_tempItem != null)
-            DragSlot.instance._dragSlot.AddItem(_tempItem, _tempItemCount);            
+        if(tempItem != null)
+            DragSlot.instance._dragSlot.AddItem(tempItem, tempItemCount, tempUpgradeItem);            
         else
             DragSlot.instance._dragSlot.ClearSlot();
     }

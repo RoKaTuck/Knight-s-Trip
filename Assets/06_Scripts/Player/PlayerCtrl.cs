@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    public int _atk = 20;
-    public int _def = 5;
-    private int _originalAtk = 20;
-    private int _originalDef = 5;
+    public int _atk;
+    public int _def;
+    public int _originalAtk;
+    public int _originalDef;
 
+    public int _OriginAtk { get { return _originalAtk; } set { _originalAtk = value; } }
+    public int _OriginDef { get { return _originalDef; } set { _originalDef = value; } }
     public int _Atk { get { return _atk; } set { _atk = value; } }
     public int _Def { get { return _def; } set { _def = value; } }
+
 
     // 필요한 컴포넌트
     [SerializeField]
@@ -22,7 +25,7 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField]
     private StatusCtrl _statusCtrl;
     [SerializeField]
-    private PlayerSkill _playerSkill;
+    private PlayerSkill _playerSkill;    
 
     private void FixedUpdate()
     {

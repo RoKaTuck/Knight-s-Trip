@@ -19,6 +19,8 @@ public class ItemEffectDatabase : MonoBehaviour
 
     // ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ®
     [SerializeField]
+    private PlayerCtrl _playerCtrl;
+    [SerializeField]
     private WeaponManager _weaponManager;
     [SerializeField]
     private StatusCtrl _statusCtrl;
@@ -39,28 +41,29 @@ public class ItemEffectDatabase : MonoBehaviour
         _slotToolTip.HideToolTip();
     }
 
-    public void UseItem(Item item)
+    public void UseItem(Item item, UpgradeItem upgradeItem = null)
     {
         if (item._itemType == Item.eItemType.Weapon)
         {
             // ÀåÂø
-            WeaponAttack weaponAttack = new WeaponSword();
-            if (item._weaponType == "SWORD")
-            {
-                weaponAttack = new WeaponSword();                
-            }
-            else if (item._weaponType == "LONGSWORD")
-            {
-                weaponAttack = new WeaponLongSword();                
-            }
-
+            //WeaponAttack weaponAttack = new WeaponSword();
+            //if (item._weaponType == "SWORD")
+            //{
+            //    weaponAttack = new WeaponSword();                
+            //}
+            //else if (item._weaponType == "LONGSWORD")
+            //{
+            //    weaponAttack = new WeaponLongSword();                
+            //}
+            _playerCtrl._Atk = _playerCtrl._OriginAtk + upgradeItem._atk;
             _weaponPanel.SetWeaponSlotImage(item);
 
-            if (weaponAttack != null)
-                StartCoroutine(_weaponManager.CRT_ChangeWeapon(weaponAttack, item._weaponType, item._itemName));
+            //if (weaponAttack != null)
+            //    StartCoroutine(_weaponManager.CRT_ChangeWeapon(weaponAttack, item._weaponType, item._itemName));
         }
         else if(item._itemType == Item.eItemType.Armor)
-        {            
+        {
+            _playerCtrl._Def = _playerCtrl._OriginDef + upgradeItem._def;
             _weaponPanel.SetWeaponSlotImage(item);
         }
         else if (item._itemType == Item.eItemType.Used)

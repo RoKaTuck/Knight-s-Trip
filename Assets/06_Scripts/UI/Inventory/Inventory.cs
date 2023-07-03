@@ -61,8 +61,7 @@ public class Inventory : MonoBehaviour
                     }
                 }
             }
-        }
-        
+        }                
 
         for (int i = 0; i < _slots.Length; i++)
         {
